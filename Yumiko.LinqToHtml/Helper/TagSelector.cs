@@ -13,7 +13,7 @@ namespace Yumiko.LinqToHtml.Helper
 {
     class TagSelector
     {
-        public TagSelector()
+        public TagSelector() 
         {
 
         }
