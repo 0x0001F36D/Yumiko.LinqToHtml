@@ -19,7 +19,7 @@
                 {
                     var sb = new StringBuilder()
 
-                    .AppendLine(@"namespace Yumiko.LinqToHtml.Tags.Item.Pair")
+                    .AppendLine(@"namespace Yumiko.LinqToHtml.Tags.Item.Single")
                     .AppendLine("{")
                     .AppendLine("\tusing Interfaces;")
                     .AppendLine("\tusing Yumiko.LinqToHtml.Tags.Infrastructure;")
