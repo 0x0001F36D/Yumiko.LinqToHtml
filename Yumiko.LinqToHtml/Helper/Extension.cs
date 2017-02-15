@@ -8,9 +8,8 @@ using System.Threading.Tasks;
 namespace Yumiko.LinqToHtml.Helper
 {
     public static class Extension
-    {
-        public static List<string> GetGroupNames(this Regex regex)=>regex.GetGroupNames().Where(x => !char.IsDigit(x, 0)).ToList();
-
-
+    { 
+            static readonly Regex split_rule = new Regex("(<[^>]+>)");
+            public static IEnumerable<string> HtmlSeparator(string html) => split_rule.Split(html);
     }
 }

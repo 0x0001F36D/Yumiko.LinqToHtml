@@ -9,32 +9,41 @@ using Yumiko.LinqToHtml.Interfaces;
 
 namespace Yumiko.LinqToHtml.Tags.Infrastructure
 {
-    public abstract class Tag :  ITag
+
+    public abstract class Tag : ITag
     {
+        private List<IFragment> contents;
+        public virtual string TagName { get; private set; }
+        protected static string tagNameHandler(string tagName) => string.Join(null, tagName.ToLower().Select(x => $"[{x}{char.ToUpper(x)}]"));
 
-         protected List<ITag> undefinition;
-        protected const char filler = default(char);
+        public IEnumerator<IFragment> GetEnumerator()
+        {
+            return ((IEnumerable<IFragment>)this.contents).GetEnumerator();
+        }
 
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return ((IEnumerable<IFragment>)this.contents).GetEnumerator();
+        }
+
+        public ITag ParentTag { get; private set; }
+
+        internal Tag(string initHtml)
+        {
+            this.contents = ((IEnumerable<IFragment>)new[] { new Fragment { Content = initHtml } }).ToList();
+        }
         public Tag(ITag parent)
         {
-            this.TagName = this.GetType().Name;
             this.ParentTag = parent;
-            this.undefinition = new List<ITag>(Evaluator?.Invoke(this));
+            this.TagName = this.GetType().Name;
         }
-        public string Content { get; private set; }
-        public abstract ContentEvaluator Evaluator { get; }
-        public ITag ParentTag { get; private set; }
-        public virtual string TagName { get; private set; }
-        
-        public int Count => ((IReadOnlyList<ITag>)this.undefinition).Count;
 
-        public ITag this[int index]=> ((IReadOnlyList<ITag>)this.undefinition)[index];
+        protected void RunFragment()
+        {
+            this.contents = new List<IFragment>(this.ParentTag.Select(x => GetFragments?.Invoke(x.Content)).SelectMany(x => x));
+        }
 
-        protected static string tagNameHandler(string tagName)=>string.Join(null, tagName.ToLower().Select(x => $"[{x}{char.ToUpper(x)}]"));
+        public abstract FragmentHandler GetFragments { get; }
 
-        public IEnumerator<ITag> GetEnumerator() => ((IReadOnlyList<ITag>) this.undefinition).GetEnumerator();
-
-        IEnumerator IEnumerable.GetEnumerator() => ((IReadOnlyList<ITag>)this.undefinition).GetEnumerator();
-        
     }
 }

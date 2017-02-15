@@ -6,16 +6,15 @@ using System.Threading.Tasks;
 
 namespace Yumiko.LinqToHtml.Interfaces
 {
-    using Enums;
     using System.Text.RegularExpressions;
-    
-    public delegate ITag ContentEvaluator(ITag parent );
-    public interface ITag :IReadOnlyList<ITag>
+    using Tags.Infrastructure;
+
+    public delegate IEnumerable<IFragment> FragmentHandler(string content);
+    public interface ITag:IEnumerable<IFragment>
     {
         string TagName { get; }
-        string Content { get; }
         ITag ParentTag { get; }
-        ContentEvaluator Evaluator { get; }
-       // dynamic Evaluate();
+        FragmentHandler GetFragments { get; }
+
     }
 }

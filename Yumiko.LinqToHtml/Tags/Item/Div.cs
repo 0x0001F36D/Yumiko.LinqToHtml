@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Yumiko.LinqToHtml.Interfaces;
 using Yumiko.LinqToHtml.Tags.Infrastructure;
 
-namespace Yumiko.LinqToHtml.Interfaces
+namespace Yumiko.LinqToHtml.Tags.Item
 {
-    interface IPairTag : ITag
+    class Div : PairTag
     {
-        Regex StartTagRule { get; }
-        Regex EndTagRule { get; }
+        public Div(ITag parent) : base(parent)
+        {
+        }
     }
 }

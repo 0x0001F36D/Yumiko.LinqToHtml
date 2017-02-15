@@ -9,12 +9,20 @@ using System.Text;
 using System.Threading.Tasks;
 using Yumiko.LinqToHtml.Interfaces;
 
+
 namespace Yumiko.LinqToHtml.Helper
 {
-    class TagSelector
+    using Xynthesizer.Core;
+    using Xynthesizer.Extension;
+
+    public class TagSelector 
     {
         public TagSelector() 
         {
+
+
+
+                    
 
         }
     }
