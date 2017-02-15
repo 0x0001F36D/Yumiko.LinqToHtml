@@ -21,14 +21,14 @@
 
                     .AppendLine(@"namespace Yumiko.LinqToHtml.Tags.Item.Single")
                     .AppendLine("{")
-                    .AppendLine("\tusing Interfaces;")
-                    .AppendLine("\tusing Yumiko.LinqToHtml.Tags.Infrastructure;")
-                    .AppendFormat("\tclass {0} : SingleTag\n", item)
-                    .AppendLine("\t{")
-                    .Append("\t\tpublic ")
+                    .AppendLine("    using Interfaces;")
+                    .AppendLine("    using Yumiko.LinqToHtml.Tags.Infrastructure;")
+                    .AppendFormat("    class {0} : SingleTag\n", item)
+                    .AppendLine("    {")
+                    .Append("        public ")
                     .AppendFormat("{0}(ITag parent) : base(parent) \n", item)
-                    .AppendLine("\t\t{\n\t\t}")
-                    .AppendLine("\t}")
+                    .AppendLine("        {\n        }")
+                    .AppendLine("    }")
                     .AppendLine("}");
                     sw.Write(sb.ToString());
                 }
