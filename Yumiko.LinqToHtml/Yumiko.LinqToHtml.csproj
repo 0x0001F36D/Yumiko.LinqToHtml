@@ -61,8 +61,24 @@
     <Compile Include="Tags\Infrastructure\PairTag.cs" />
     <Compile Include="Tags\Infrastructure\SingleTag.cs" />
     <Compile Include="Tags\Infrastructure\Tag.cs" />
-    <Compile Include="Tags\Item\Div.cs" />
-    <Compile Include="Tags\Item\P.cs" />
+    <Compile Include="Tags\Item\Pair\Div.cs" />
+    <Compile Include="Tags\Item\Pair\P.cs" />
+    <Compile Include="Tags\Item\Single\Area.cs" />
+    <Compile Include="Tags\Item\Single\Base.cs" />
+    <Compile Include="Tags\Item\Single\Br.cs" />
+    <Compile Include="Tags\Item\Single\Col.cs" />
+    <Compile Include="Tags\Item\Single\Command.cs" />
+    <Compile Include="Tags\Item\Single\Embed.cs" />
+    <Compile Include="Tags\Item\Single\Hr.cs" />
+    <Compile Include="Tags\Item\Single\Img.cs" />
+    <Compile Include="Tags\Item\Single\Input.cs" />
+    <Compile Include="Tags\Item\Single\Keygen.cs" />
+    <Compile Include="Tags\Item\Single\Link.cs" />
+    <Compile Include="Tags\Item\Single\Meta.cs" />
+    <Compile Include="Tags\Item\Single\Param.cs" />
+    <Compile Include="Tags\Item\Single\Source.cs" />
+    <Compile Include="Tags\Item\Single\Track.cs" />
+    <Compile Include="Tags\Item\Single\Wbr.cs" />
     <Compile Include="Tags\Root.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,40 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Xml.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Reflection;
-using System.Threading.Tasks;
-using System.Runtime.CompilerServices;
-
-namespace Yumiko.LinqToHtml
+﻿namespace Yumiko.LinqToHtml
 {
-    using Helper;
-    using System.IO;
+    using System;
+    using System.Linq;
+    using System.Text;
+    using System.Reflection;
     using System.Net;
-    using System.Text.RegularExpressions;
-    using System.Xml;
     using Tags;
-    using Tags.Infrastructure;
-
+    using System.IO;
     class Program
     {
-        class Meta : Tags.Infrastructure.SingleTag
-        {
-            public Meta(Tag parent) : base(parent)
-            {
-            }
-        }
-
-
         static void Main(string[] args)
         {
+            var target = @"C:\Users\USER\Documents\Visual Studio 2015\Projects\Yumiko.LinqToHtml\Yumiko.LinqToHtml\Tags\Item\Single\";
+            var tags = "area, base, br, col, command, embed, hr, img, input,keygen, link, meta, param, source, track, wbr".Replace(" ", null).Split(',').Select(x=>x[0].ToString().ToUpper()+new string(x.Skip(1).ToArray()));
+            foreach (var item in tags)
+            {
+                using (var sw = new StreamWriter(target+$"{item}.cs"))
+                {
+                    var sb = new StringBuilder()
+
+                    .AppendLine(@"namespace Yumiko.LinqToHtml.Tags.Item.Pair")
+                    .AppendLine("{")
+                    .AppendLine("\tusing Interfaces;")
+                    .AppendLine("\tusing Yumiko.LinqToHtml.Tags.Infrastructure;")
+                    .AppendFormat("\tclass {0} : SingleTag\n", item)
+                    .AppendLine("\t{")
+                    .Append("\t\tpublic ")
+                    .AppendFormat("{0}(ITag parent) : base(parent) \n", item)
+                    .AppendLine("\t\t{\n\t\t}")
+                    .AppendLine("\t}")
+                    .AppendLine("}");
+                    sw.Write(sb.ToString());
+                }
+            }
+
+            Console.ReadKey();
+            return;
+
+
+
+
             var o = from n in Assembly.GetExecutingAssembly().GetTypes()
                     where n.GetInterfaces().Any(x => x == typeof(Interfaces.ITag)) & n.IsSubclassOf(typeof(Tags.Infrastructure.Tag)) & !n.IsAbstract
                     select n;
 
-            var site = new[] 
+            var site = new[]
             {
                 "http://lollipo.pw",
                 "https://www.instagram.com/",
@@ -43,8 +53,8 @@ namespace Yumiko.LinqToHtml
                 "https://msdn.microsoft.com/zh-tw/library/system.text.regularexpressions.regex(v=vs.110).aspx",
                 "http://lollipo.pw/test/nest.html"
             };
-            
-            Console.BufferHeight =500;// nt16.MaxValue-1;
+
+            Console.BufferHeight = 500;// nt16.MaxValue-1;
 
             var header = new WebHeaderCollection();
             header.Add(HttpRequestHeader.UserAgent, "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36");
@@ -53,21 +63,14 @@ namespace Yumiko.LinqToHtml
                 Headers = header,
                 Encoding = Encoding.UTF8
             }.DownloadStringTaskAsync(site[4]).Result;
-
-            var root = Root.Create(html);
-            var meta = new Meta(root);
-            foreach (var item in meta)
-            {
-                Console.WriteLine(item); 
-            }
+            
 
 
             Console.ReadKey();
         }
 
         /*
-         area, base, br, col, command, embed, hr, img, input,
-keygen, link, meta, param, source, track, wbr
+         area, base, br, col, command, embed, hr, img, input,keygen, link, meta, param, source, track, wbr
          */
     }
 }

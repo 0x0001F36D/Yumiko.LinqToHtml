@@ -11,7 +11,7 @@ namespace Yumiko.LinqToHtml.Tags.Infrastructure
 {
     abstract class SingleTag : Tag, ISingleTag
     {
-        public SingleTag(Tag parent) : base(parent)
+        public SingleTag(ITag parent) : base(parent)
         {
             ln_rule = new Regex($"<{tagNameHandler(this.TagName)}(?<attribute>[^>]*)/>", RegexOptions.Compiled | RegexOptions.IgnoreCase);
             this.RunFragment();
