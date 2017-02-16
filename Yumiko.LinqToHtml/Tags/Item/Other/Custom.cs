@@ -1,4 +1,4 @@
-﻿namespace Yumiko.LinqToHtml.Tags.Item.Other
+﻿namespace Yumiko.LinqToHtml.Tags.Item
 {
     using System;
     using System.Collections.Generic;

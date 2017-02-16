@@ -177,7 +177,7 @@
     <Compile Include="Tags\Item\Single\Source.cs" />
     <Compile Include="Tags\Item\Single\Track.cs" />
     <Compile Include="Tags\Item\Single\Wbr.cs" />
-    <Compile Include="Tags\Item\Root.cs" />
+    <Compile Include="Tags\Item\Other\Root.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

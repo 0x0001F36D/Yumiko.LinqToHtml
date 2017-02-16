@@ -1,4 +1,4 @@
-namespace Yumiko.LinqToHtml.Tags.Item.Single
+namespace Yumiko.LinqToHtml.Tags.Item
 {
     using Interfaces;
     using Yumiko.LinqToHtml.Tags.Infrastructure;
