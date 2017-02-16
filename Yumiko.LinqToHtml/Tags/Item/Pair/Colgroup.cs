@@ -2,7 +2,7 @@ namespace Yumiko.LinqToHtml.Tags.Item.Pair
 {
     using Interfaces;
     using Yumiko.LinqToHtml.Tags.Infrastructure;
-    sealed class Colgroup : PairTag
+    public sealed class Colgroup : PairTag
     {
         public Colgroup(ITag parent) : base(parent)
         {

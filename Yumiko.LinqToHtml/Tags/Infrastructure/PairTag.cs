@@ -10,7 +10,7 @@ using Yumiko.LinqToHtml.Interfaces;
 namespace Yumiko.LinqToHtml.Tags.Infrastructure
 {
 
-    abstract class PairTag : Tag, IPairTag
+    public abstract class PairTag : Tag, IPairTag
     {
         private static Regex ed_rule;
         private static Regex st_rule;

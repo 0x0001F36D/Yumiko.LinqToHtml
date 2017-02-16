@@ -2,7 +2,7 @@ namespace Yumiko.LinqToHtml.Tags.Item.Single
 {
     using Interfaces;
     using Yumiko.LinqToHtml.Tags.Infrastructure;
-    sealed class Img : SingleTag
+    public sealed class Img : SingleTag
     {
         public Img(ITag parent) : base(parent)
         {

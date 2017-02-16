@@ -2,7 +2,7 @@ namespace Yumiko.LinqToHtml.Tags.Item.Pair
 {
     using Interfaces;
     using Yumiko.LinqToHtml.Tags.Infrastructure;
-    sealed class Acronym : PairTag
+    public sealed class Acronym : PairTag
     {
         public Acronym(ITag parent) : base(parent)
         {

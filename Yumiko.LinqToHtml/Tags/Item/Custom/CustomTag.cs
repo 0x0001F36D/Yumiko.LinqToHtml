@@ -9,7 +9,7 @@ namespace Yumiko.LinqToHtml.Tags.Item.Custom
     using Interfaces;
     using Yumiko.LinqToHtml.Tags.Infrastructure;
 
-    sealed class CustomTag : Tag
-    {
-    }
+   // public sealed class CustomTag : Tag
+  //  {
+  //  }
 }

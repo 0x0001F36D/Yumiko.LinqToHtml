@@ -9,7 +9,7 @@ using Yumiko.LinqToHtml.Interfaces;
 
 namespace Yumiko.LinqToHtml.Tags.Infrastructure
 {
-    abstract class SingleTag : Tag, ISingleTag
+    public abstract class SingleTag : Tag, ISingleTag
     {
         public SingleTag(ITag parent) : base(parent)
         {

@@ -9,7 +9,7 @@ namespace Yumiko.LinqToHtml.Tags.Item
     using System.Threading.Tasks;
     using Yumiko.LinqToHtml.Interfaces;
     using Yumiko.LinqToHtml.Tags.Infrastructure;
-    sealed class Root : Tag
+    public sealed class Root : Tag
     {
         public override string TagName
         {
