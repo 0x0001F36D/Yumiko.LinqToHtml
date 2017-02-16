@@ -52,7 +52,9 @@
     <Compile Include="Tags\Infrastructure\PairTag.cs" />
     <Compile Include="Tags\Infrastructure\SingleTag.cs" />
     <Compile Include="Tags\Infrastructure\Tag.cs" />
-    <Compile Include="Tags\Item\Custom\CustomTag.cs" />
+    <Compile Include="Tags\Item\Other\Custom.cs" />
+    <Compile Include="Tags\Item\Other\Comment.cs" />
+    <Compile Include="Tags\Item\Other\Doctype.cs" />
     <Compile Include="Tags\Item\Pair\A.cs" />
     <Compile Include="Tags\Item\Pair\Abbr.cs" />
     <Compile Include="Tags\Item\Pair\Acronym.cs" />

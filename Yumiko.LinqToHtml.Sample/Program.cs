@@ -10,7 +10,7 @@
     using System.Collections.Generic;
     using Tags.Item.Pair;
     using Tags.Item;
-    using Tags.Item.Custom;
+    using Tags.Item.Other;
 
     class Program
     {
@@ -40,11 +40,10 @@
             {
                 Headers = header,
                 Encoding = Encoding.UTF8
-            }.DownloadStringTaskAsync(site[4]).Result;
+            }.DownloadStringTaskAsync(site[5]).Result;
 
             Root root = Root.Create(html);
-            var custom = new CustomTag(root, "sentenceText", TagType.Pair);
-            var a = new A(custom);
+            var a = new Doctype(root);
             foreach (var item in a)
             {
                 Console.WriteLine(item);

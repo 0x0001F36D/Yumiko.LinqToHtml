@@ -16,7 +16,6 @@ namespace Yumiko.LinqToHtml.Tags.Infrastructure
         private static Regex st_rule;
         public virtual Regex EndTagRule => ed_rule;
         public virtual Regex StartTagRule => st_rule;
-
         public PairTag(ITag parent) : base(parent)
         {
             st_rule = new Regex(@"<" + tagNameHandler(this.TagName) + "(?<attribute>[^>]*)>", RegexOptions.Compiled);

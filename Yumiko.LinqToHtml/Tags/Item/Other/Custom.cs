@@ -1,11 +1,8 @@
-﻿
-namespace Yumiko.LinqToHtml.Tags.Item.Custom
+﻿namespace Yumiko.LinqToHtml.Tags.Item.Other
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using Interfaces;
     using Yumiko.LinqToHtml.Tags.Infrastructure;
     using System.Text.RegularExpressions;
@@ -16,9 +13,9 @@ namespace Yumiko.LinqToHtml.Tags.Item.Custom
         Single,
         Pair
     }
-    public sealed class CustomTag : Tag, IPairTag, ISingleTag
+    public sealed class Custom : Tag, IPairTag, ISingleTag
     {
-        public CustomTag(ITag parent, string tagName,TagType type , bool ignoreCase = true) : base(parent)
+        public Custom(ITag parent, string tagName,TagType type , bool ignoreCase = true) : base(parent)
         {
             if (string.IsNullOrWhiteSpace(tagName))
                 throw new ArgumentNullException(nameof(tagName));
