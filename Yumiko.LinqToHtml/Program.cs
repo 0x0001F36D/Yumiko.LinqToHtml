@@ -9,15 +9,18 @@
     using System.IO;
     using System.Collections.Generic;
 
+    using Tags.Item.Pair;
+    using Tags.Item;
+
     class Program
     {
         static void Main(string[] args)
         {
-
-
             var o = from n in Assembly.GetExecutingAssembly().GetTypes()
                     where n.GetInterfaces().Any(x => x == typeof(Interfaces.ITag)) & n.IsSubclassOf(typeof(Tags.Infrastructure.Tag)) & !n.IsAbstract
                     select n;
+            
+            
 
             var site = new[]
             {
@@ -38,6 +41,13 @@
                 Headers = header,
                 Encoding = Encoding.UTF8
             }.DownloadStringTaskAsync(site[4]).Result;
+
+            Root root = Root.Create(html);
+            var span = new Span(root);
+            foreach (var item in span)
+            {
+                Console.WriteLine(item);
+            }
 
 
             Console.ReadKey();

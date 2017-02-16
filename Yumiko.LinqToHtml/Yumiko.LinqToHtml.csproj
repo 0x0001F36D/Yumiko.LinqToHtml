@@ -61,6 +61,7 @@
     <Compile Include="Tags\Infrastructure\PairTag.cs" />
     <Compile Include="Tags\Infrastructure\SingleTag.cs" />
     <Compile Include="Tags\Infrastructure\Tag.cs" />
+    <Compile Include="Tags\Item\Custom\CustomTag.cs" />
     <Compile Include="Tags\Item\Pair\A.cs" />
     <Compile Include="Tags\Item\Pair\Abbr.cs" />
     <Compile Include="Tags\Item\Pair\Acronym.cs" />
@@ -107,6 +108,7 @@
     <Compile Include="Tags\Item\Pair\H3.cs" />
     <Compile Include="Tags\Item\Pair\H4.cs" />
     <Compile Include="Tags\Item\Pair\H5.cs" />
+    <Compile Include="Tags\Item\Pair\H6.cs" />
     <Compile Include="Tags\Item\Pair\Head.cs" />
     <Compile Include="Tags\Item\Pair\Header.cs" />
     <Compile Include="Tags\Item\Pair\Html.cs" />
@@ -182,7 +184,7 @@
     <Compile Include="Tags\Item\Single\Source.cs" />
     <Compile Include="Tags\Item\Single\Track.cs" />
     <Compile Include="Tags\Item\Single\Wbr.cs" />
-    <Compile Include="Tags\Root.cs" />
+    <Compile Include="Tags\Item\Root.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
