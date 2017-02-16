@@ -7,21 +7,37 @@
     using System.Net;
     using Tags;
     using System.IO;
+    using System.Collections.Generic;
+
     class Program
     {
         static void Main(string[] args)
         {
-            var target = @"C:\Users\USER\Documents\Visual Studio 2015\Projects\Yumiko.LinqToHtml\Yumiko.LinqToHtml\Tags\Item\Single\";
+            IEnumerable<string> tmp;
+            using(var sr = new StreamReader(@"C:\Users\USER\Documents\Visual Studio 2015\Projects\Yumiko.LinqToHtml\Yumiko.LinqToHtml\Helper\TextFile1.txt"))
+            {
+                tmp= sr.ReadToEnd().Split(new[] { '\n', '\r' },StringSplitOptions.RemoveEmptyEntries).Select(x=>x.Trim('<','>')).Select(x => x[0].ToString().ToUpper() + new string(x.Skip(1).ToArray()));
+            }
+            foreach (var item in tmp)
+            {
+                Console.WriteLine(item); 
+            }
+            Console.WriteLine("===============");
+            var target = @"C:\Users\USER\Documents\Visual Studio 2015\Projects\Yumiko.LinqToHtml\Yumiko.LinqToHtml\Tags\Item\Pair\";
             Console.WriteLine(target);
             var tags = "area, base, br, col, command, embed, hr, img, input,keygen, link, meta, param, source, track, wbr".Replace(" ", null).Split(',').Select(x=>x[0].ToString().ToUpper()+new string(x.Skip(1).ToArray()));
-            foreach (var item in tags)
+
+            var except = tmp.Except(tags);
+
+            
+            foreach (var item in new[]  { "H1","H2","H3","H4","H5","H6" })
             {
                 using (var sw = new StreamWriter(target+$"{item}.cs"))
                 {
-                    sw.Write(Yumiko.LinqToHtml.Helper.Extension.GenerateCSharpClassCode(item,Helper.Extension.TagType.Single));
+                    sw.Write(Yumiko.LinqToHtml.Helper.Extension.GenerateCSharpClassCode(item,Helper.Extension.TagType.Pair));
                 }
             }
-
+            
             Console.ReadKey();
             return;
 
@@ -51,7 +67,6 @@
                 Headers = header,
                 Encoding = Encoding.UTF8
             }.DownloadStringTaskAsync(site[4]).Result;
-            
 
 
             Console.ReadKey();

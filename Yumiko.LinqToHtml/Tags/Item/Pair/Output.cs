@@ -2,9 +2,9 @@ namespace Yumiko.LinqToHtml.Tags.Item.Pair
 {
     using Interfaces;
     using Yumiko.LinqToHtml.Tags.Infrastructure;
-    sealed class P : PairTag
+    sealed class Output : PairTag
     {
-        public P(ITag parent) : base(parent)
+        public Output(ITag parent) : base(parent)
         {
         }
     }
