@@ -14,11 +14,11 @@
     {
         static void Main(string[] args)
         {
-            var o = from n in Assembly.GetExecutingAssembly().GetTypes()
-                    where n.GetInterfaces().Any(x => x == typeof(Interfaces.ITag)) & n.IsSubclassOf(typeof(Tags.Infrastructure.Tag)) & !n.IsAbstract
-                    select n;
 
+            Helper.Selector.Print();
 
+            Console.ReadKey();
+            return;
 
             var site = new[]
             {
