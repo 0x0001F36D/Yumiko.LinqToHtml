@@ -19,7 +19,7 @@ namespace Yumiko.LinqToHtml.Tags.Item
             }
         }
         public override FragmentHandler GetFragments { get { throw new NotSupportedException(); } }
-        private Root(string initHtml) : base(initHtml) { }
+        private Root(string html) : base(html) { }
         public static Root Create(string html) => new Root(html);
     }
 }

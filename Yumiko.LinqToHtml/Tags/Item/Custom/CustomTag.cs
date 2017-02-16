@@ -9,7 +9,22 @@ namespace Yumiko.LinqToHtml.Tags.Item.Custom
     using Interfaces;
     using Yumiko.LinqToHtml.Tags.Infrastructure;
 
-   // public sealed class CustomTag : Tag
-  //  {
-  //  }
+    public sealed class CustomTag : Tag
+    {
+        public CustomTag(ITag parent , string tagName):base(parent)
+        {
+            if (string.IsNullOrWhiteSpace(tagName))
+                throw new ArgumentNullException(nameof(tagName));
+            this.tagName = tagName;
+        }
+        private string tagName;
+        public override string TagName => tagName;
+        public override FragmentHandler GetFragments
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+    }
 }

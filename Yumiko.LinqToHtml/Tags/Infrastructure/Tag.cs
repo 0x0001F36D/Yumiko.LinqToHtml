@@ -28,12 +28,16 @@ namespace Yumiko.LinqToHtml.Tags.Infrastructure
 
         public ITag ParentTag { get; private set; }
 
-        internal Tag(string initHtml)
+        internal Tag(string html)
         {
-            this.contents = ((IEnumerable<IFragment>)new[] { new Fragment { Content = initHtml } }).ToList();
+            if (string.IsNullOrWhiteSpace(html))
+                throw new ArgumentNullException(nameof(html));
+            this.contents = ((IEnumerable<IFragment>)new[] { new Fragment { Content = html } }).ToList();
         }
         public Tag(ITag parent)
         {
+            if (parent == null)
+                throw new ArgumentNullException(nameof(parent));
             this.ParentTag = parent;
             this.TagName = this.GetType().Name;
         }
