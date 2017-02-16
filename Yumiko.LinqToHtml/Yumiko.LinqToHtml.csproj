@@ -48,7 +48,6 @@
     <Compile Include="Interfaces\ISingleTag.cs" />
     <Compile Include="Interfaces\ITag.cs" />
     <Compile Include="Interfaces\ITagAttribute.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tags\Infrastructure\Fragment.cs" />
     <Compile Include="Tags\Infrastructure\PairTag.cs" />
