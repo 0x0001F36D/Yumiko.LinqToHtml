@@ -8,9 +8,9 @@
     using Tags;
     using System.IO;
     using System.Collections.Generic;
-
     using Tags.Item.Pair;
     using Tags.Item;
+    using Tags.Item.Custom;
 
     class Program
     {
@@ -43,8 +43,9 @@
             }.DownloadStringTaskAsync(site[4]).Result;
 
             Root root = Root.Create(html);
-            var span = new Span(root);
-            foreach (var item in span)
+            var custom = new CustomTag(root, "sentenceText", TagType.Pair);
+            var a = new A(custom);
+            foreach (var item in a)
             {
                 Console.WriteLine(item);
             }

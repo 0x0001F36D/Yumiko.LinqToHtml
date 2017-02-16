@@ -24,8 +24,8 @@ namespace Yumiko.LinqToHtml.Tags.Infrastructure
             this.RunFragment();
         }
 
-        public override FragmentHandler GetFragments => getTag;
-        private IEnumerable<Fragment> getTag(string html)
+        public override FragmentHandler GetFragments => getPair;
+        private IEnumerable<Fragment> getPair(string html)
         {
             #region 
             var splitter = default(char);

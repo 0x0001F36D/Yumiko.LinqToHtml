@@ -13,17 +13,20 @@ namespace Yumiko.LinqToHtml.Tags.Infrastructure
     {
         public SingleTag(ITag parent) : base(parent)
         {
-            ln_rule = new Regex($"<{tagNameHandler(this.TagName)}(?<attribute>[^>]*)/>", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+            ln_rule = new Regex($"<{tagNameHandler(this.TagName)}(?<attribute>[^>]*)/>", RegexOptions.Compiled);
             this.RunFragment();
         }
-        public override FragmentHandler GetFragments => getTag;
-        private IEnumerable<IFragment> getTag(string html)
+        public override FragmentHandler GetFragments => getSingle;
+        private IEnumerable<IFragment> getSingle(string html)
         {
+            var splitter = default(char);
             foreach (var content in Extension.HtmlSeparator(html))
             {
                 if (LineTagRule.IsMatch(content))
                 {
                     var v = LineTagRule.Match(content).Groups["attribute"].Value;
+                    var st = html.IndexOf(content);
+                    html = html.Remove(st, content.Length).Insert(st, new string(Enumerable.Repeat(splitter, content.Length).ToArray()));
                     yield return new Fragment { Attributes = v, Content = null };
                 }
             }
