@@ -2,9 +2,9 @@ namespace Yumiko.LinqToHtml.Tags.Item.Single
 {
     using Interfaces;
     using Yumiko.LinqToHtml.Tags.Infrastructure;
-    class Link : SingleTag
+    sealed class Link : SingleTag
     {
-        public Link(ITag parent) : base(parent) 
+        public Link(ITag parent) : base(parent)
         {
         }
     }

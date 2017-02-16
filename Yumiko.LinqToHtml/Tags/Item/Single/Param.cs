@@ -2,9 +2,9 @@ namespace Yumiko.LinqToHtml.Tags.Item.Single
 {
     using Interfaces;
     using Yumiko.LinqToHtml.Tags.Infrastructure;
-    class Param : SingleTag
+    sealed class Param : SingleTag
     {
-        public Param(ITag parent) : base(parent) 
+        public Param(ITag parent) : base(parent)
         {
         }
     }

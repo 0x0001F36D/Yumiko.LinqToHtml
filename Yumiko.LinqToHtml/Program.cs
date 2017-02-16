@@ -12,25 +12,13 @@
         static void Main(string[] args)
         {
             var target = @"C:\Users\USER\Documents\Visual Studio 2015\Projects\Yumiko.LinqToHtml\Yumiko.LinqToHtml\Tags\Item\Single\";
+            Console.WriteLine(target);
             var tags = "area, base, br, col, command, embed, hr, img, input,keygen, link, meta, param, source, track, wbr".Replace(" ", null).Split(',').Select(x=>x[0].ToString().ToUpper()+new string(x.Skip(1).ToArray()));
             foreach (var item in tags)
             {
                 using (var sw = new StreamWriter(target+$"{item}.cs"))
                 {
-                    var sb = new StringBuilder()
-
-                    .AppendLine(@"namespace Yumiko.LinqToHtml.Tags.Item.Single")
-                    .AppendLine("{")
-                    .AppendLine("    using Interfaces;")
-                    .AppendLine("    using Yumiko.LinqToHtml.Tags.Infrastructure;")
-                    .AppendFormat("    class {0} : SingleTag\n", item)
-                    .AppendLine("    {")
-                    .Append("        public ")
-                    .AppendFormat("{0}(ITag parent) : base(parent) \n", item)
-                    .AppendLine("        {\n        }")
-                    .AppendLine("    }")
-                    .AppendLine("}");
-                    sw.Write(sb.ToString());
+                    sw.Write(Yumiko.LinqToHtml.Helper.Extension.GenerateCSharpClassCode(item,Helper.Extension.TagType.Single));
                 }
             }
 

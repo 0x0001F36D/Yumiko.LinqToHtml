@@ -2,9 +2,9 @@ namespace Yumiko.LinqToHtml.Tags.Item.Single
 {
     using Interfaces;
     using Yumiko.LinqToHtml.Tags.Infrastructure;
-    class Hr : SingleTag
+    sealed class Hr : SingleTag
     {
-        public Hr(ITag parent) : base(parent) 
+        public Hr(ITag parent) : base(parent)
         {
         }
     }
