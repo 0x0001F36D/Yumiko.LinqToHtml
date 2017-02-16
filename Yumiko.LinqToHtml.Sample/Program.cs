@@ -48,8 +48,6 @@
             {
                 Console.WriteLine(item);
             }
-
-
             Console.ReadKey();
         }
 
