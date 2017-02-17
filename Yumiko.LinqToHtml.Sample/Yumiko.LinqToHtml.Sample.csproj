@@ -36,6 +36,8 @@
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.XML" />
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="Yumiko.LinqToHtml">
       <HintPath>..\Yumiko.LinqToHtml\bin\Debug\Yumiko.LinqToHtml.dll</HintPath>
     </Reference>

@@ -18,8 +18,8 @@ namespace Yumiko.LinqToHtml.Tags.Infrastructure
         public virtual Regex StartTagRule => st_rule;
         public PairTag(ITag parent) : base(parent)
         {
-            st_rule = new Regex(@"<" + tagNameHandler(this.TagName) + "(?<attribute>[^>]*)>", RegexOptions.Compiled);
-            ed_rule = new Regex(@"</" + tagNameHandler(this.TagName) + ">", RegexOptions.Compiled);
+            st_rule = new Regex(@"<" + tagNameHandler(this.TagName) + "(?<attribute>[^>]*)>", RegexOptions.ExplicitCapture);
+            ed_rule = new Regex(@"</" + tagNameHandler(this.TagName) + ">");
             this.RunFragment();
         }
 
@@ -50,7 +50,7 @@ namespace Yumiko.LinqToHtml.Tags.Infrastructure
                          .Remove(st, (ed + subStr.Length) - st)
                          .Insert(st, new string(Enumerable.Repeat(splitter, (ed + subStr.Length) - st).ToArray()));
                     if (c != string.Empty)
-                        yield return new Fragment { Content = c, Attributes = tmp.Item2 };
+                        yield return new Fragment(tmp.Item2,c);
                 }
                 #endregion
             }

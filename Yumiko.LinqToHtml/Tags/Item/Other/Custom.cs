@@ -24,11 +24,11 @@
             switch (this.Type = type)
             {
                 case TagType.Single:
-                    ln_rule = new Regex($"<{tag}(?<attribute>[^>]*)/>", RegexOptions.Compiled);
+                    ln_rule = new Regex($"<{tag}(?<attribute>[^>]*)/>", RegexOptions.ExplicitCapture);
                     break;
                 case TagType.Pair:
-                    st_rule = new Regex(@"<" + tag + "(?<attribute>[^>]*)>", RegexOptions.Compiled);
-                    ed_rule = new Regex(@"</" + tag + ">", RegexOptions.Compiled);
+                    st_rule = new Regex(@"<" + tag + "(?<attribute>[^>]*)>", RegexOptions.ExplicitCapture);
+                    ed_rule = new Regex(@"</" + tag + ">");
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type));
@@ -55,7 +55,7 @@
                     var v = LineTagRule.Match(content).Groups["attribute"].Value;
                     var st = html.IndexOf(content);
                     html = html.Remove(st, content.Length).Insert(st, new string(Enumerable.Repeat(splitter, content.Length).ToArray()));
-                    yield return new Fragment { Attributes = v, Content = null };
+                    yield return new Fragment(v,null);
                 }
             }
         }
@@ -85,7 +85,7 @@
                          .Remove(st, (ed + subStr.Length) - st)
                          .Insert(st, new string(Enumerable.Repeat(splitter, (ed + subStr.Length) - st).ToArray()));
                     if (c != string.Empty)
-                        yield return new Fragment { Content = c, Attributes = tmp.Item2 };
+                        yield return new Fragment(tmp.Item2,c);
                 }
                 #endregion
             }

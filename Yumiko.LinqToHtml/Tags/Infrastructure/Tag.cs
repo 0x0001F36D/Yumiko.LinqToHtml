@@ -15,24 +15,14 @@ namespace Yumiko.LinqToHtml.Tags.Infrastructure
         private List<IFragment> contents;
         public virtual string TagName { get; private set; }
         protected static string tagNameHandler(string tagName) => string.Join(null, tagName.ToLower().Select(x => $"[{x}{char.ToUpper(x)}]"));
-
-        public IEnumerator<IFragment> GetEnumerator()
-        {
-            return ((IEnumerable<IFragment>)this.contents).GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return ((IEnumerable<IFragment>)this.contents).GetEnumerator();
-        }
-
+        public IEnumerator<IFragment> GetEnumerator()=> ((IEnumerable<IFragment>)this.contents).GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator()=> ((IEnumerable<IFragment>)this.contents).GetEnumerator();
         public ITag ParentTag { get; private set; }
-
         internal Tag(string html)
         {
             if (string.IsNullOrWhiteSpace(html))
                 throw new ArgumentNullException(nameof(html));
-            this.contents = ((IEnumerable<IFragment>)new[] { new Fragment { Content = html } }).ToList();
+            this.contents = ((IEnumerable<IFragment>)new[] { new Fragment(string.Empty , html ) }).ToList();
         }
         public Tag(ITag parent)
         {
