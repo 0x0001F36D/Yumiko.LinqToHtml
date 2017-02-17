@@ -1,12 +1,12 @@
 ﻿namespace Yumiko.LinqToHtml.Tags.Item
 {
+    using Helper;
+    using Infrastructure;
+    using Interfaces;
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Interfaces;
-    using Yumiko.LinqToHtml.Tags.Infrastructure;
     using System.Text.RegularExpressions;
-    using Helper;
 
     public enum TagType
     {

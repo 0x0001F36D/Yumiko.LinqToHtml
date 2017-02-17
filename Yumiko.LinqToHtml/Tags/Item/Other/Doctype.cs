@@ -2,7 +2,7 @@
 {
     using System.Text.RegularExpressions;
     using Interfaces;
-    using Yumiko.LinqToHtml.Tags.Infrastructure;
+    using Infrastructure;
 
     public sealed class Doctype : SingleTag
     {
