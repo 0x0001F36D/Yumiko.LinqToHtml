@@ -32,12 +32,8 @@
             ***/
             var site = new[]
             {
-                "http://lollipo.pw",
-                "https://www.instagram.com/",
-                "https://www.instagram.com/call_me_yu_yu/",
                 "https://www.facebook.com/",
                 "https://msdn.microsoft.com/zh-tw/library/system.text.regularexpressions.regex(v=vs.110).aspx",
-                "http://lollipo.pw/test/nest.html"
             };
 
             Console.BufferHeight = 500;// nt16.MaxValue-1;
@@ -48,7 +44,7 @@
             {
                 Headers = header,
                 Encoding = Encoding.UTF8
-            }.DownloadStringTaskAsync(site[4]).Result;
+            }.DownloadStringTaskAsync(site[1]).Result;
             sw.Start();
             var root = Root.Create(html);
             var a = new Div(root);
