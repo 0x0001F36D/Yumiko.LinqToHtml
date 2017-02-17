@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Yumiko.LinqToHtml.Tags.Infrastructure;
-namespace Yumiko.LinqToHtml.Interfaces
+﻿namespace Yumiko.LinqToHtml.Interfaces
 {
-    public interface IFragment : IReadOnlyList<Tags.Infrastructure.Attribute>
+    using System.Linq;
+    using System.Collections.Generic;
+    using System.Text.RegularExpressions;
+    public interface IFragment : IReadOnlyList<Tags.Infrastructure.Attribute>,ILookup<string,string>
     {
         Regex AttributeRule { get; }
         string Content { get; }
         IList<Tags.Infrastructure.Attribute> Attributes { get; }
+
+        string OriginAttributes { get; }
     }
 }

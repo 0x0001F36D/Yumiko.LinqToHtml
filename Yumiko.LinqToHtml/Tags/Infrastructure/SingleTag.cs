@@ -19,14 +19,13 @@ namespace Yumiko.LinqToHtml.Tags.Infrastructure
         public override FragmentHandler GetFragments => getSingle;
         private IEnumerable<IFragment> getSingle(string html)
         {
-            var splitter = default(char);
             foreach (var content in Extension.HtmlSeparator(html))
             {
                 if (LineTagRule.IsMatch(content))
                 {
                     var v = LineTagRule.Match(content).Groups["attribute"].Value;
                     var st = html.IndexOf(content);
-                    html = html.Remove(st, content.Length).Insert(st, new string(Enumerable.Repeat(splitter, content.Length).ToArray()));
+                    html = html.Remove(st, content.Length).Insert(st, new string(Enumerable.Repeat(EmptyCharacter, content.Length).ToArray()));
                     yield return new Fragment(v, null);
                 }
             }

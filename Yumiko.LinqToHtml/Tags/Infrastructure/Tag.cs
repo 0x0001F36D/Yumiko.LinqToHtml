@@ -1,17 +1,20 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Yumiko.LinqToHtml.Interfaces;
-
+﻿
 namespace Yumiko.LinqToHtml.Tags.Infrastructure
 {
+    using Item.Scopes;
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Collections.ObjectModel;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using Yumiko.LinqToHtml.Interfaces;
+
 
     public abstract class Tag : ITag
     {
+        public const char EmptyCharacter =  default(char);
         private List<IFragment> contents;
         public virtual string TagName { get; private set; }
         protected static string tagNameHandler(string tagName) => string.Join(null, tagName.ToLower().Select(x => $"[{x}{char.ToUpper(x)}]"));

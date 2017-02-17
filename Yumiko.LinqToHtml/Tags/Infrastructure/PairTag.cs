@@ -9,7 +9,6 @@ using Yumiko.LinqToHtml.Interfaces;
 
 namespace Yumiko.LinqToHtml.Tags.Infrastructure
 {
-
     public abstract class PairTag : Tag, IPairTag
     {
         private static Regex ed_rule;
@@ -27,7 +26,6 @@ namespace Yumiko.LinqToHtml.Tags.Infrastructure
         private IEnumerable<Fragment> getPair(string html)
         {
             #region 
-            var splitter = default(char);
             var stack = new Stack<Tuple<int, string>>();
             foreach (var subStr in Extension.HtmlSeparator(html))
             {
@@ -36,7 +34,7 @@ namespace Yumiko.LinqToHtml.Tags.Infrastructure
                 {
                     var st = html.IndexOf(subStr);
                     stack.Push(Tuple.Create(st + subStr.Length, StartTagRule.Match(subStr).Groups["attribute"].Value));
-                    html = html.Remove(st, subStr.Length).Insert(st, new string(Enumerable.Repeat(splitter, subStr.Length).ToArray()));//new string( Enumerable.Repeat(c,len).ToArray())
+                    html = html.Remove(st, subStr.Length).Insert(st, new string(Enumerable.Repeat(EmptyCharacter, subStr.Length).ToArray()));//new string( Enumerable.Repeat(c,len).ToArray())
                 }
                 #endregion
                 #region EndTag
@@ -45,10 +43,10 @@ namespace Yumiko.LinqToHtml.Tags.Infrastructure
                     var tmp = stack.Pop();
                     var st = tmp.Item1;
                     var ed = html.IndexOf(subStr);
-                    var c = html.Substring(st, ed - st).Replace(splitter.ToString(), null);
+                    var c = html.Substring(st, ed - st).Replace(EmptyCharacter.ToString(), null);
                     html = html
                          .Remove(st, (ed + subStr.Length) - st)
-                         .Insert(st, new string(Enumerable.Repeat(splitter, (ed + subStr.Length) - st).ToArray()));
+                         .Insert(st, new string(Enumerable.Repeat(EmptyCharacter, (ed + subStr.Length) - st).ToArray()));
                     if (c != string.Empty)
                         yield return new Fragment(tmp.Item2,c);
                 }
