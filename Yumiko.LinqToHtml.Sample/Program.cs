@@ -57,7 +57,7 @@
                 {
                     Scopes.Div,
                     Scopes.Span,
-                    Scopes.Img
+                    Scopes.Img 
                 })
                 .Select("src");
             foreach (var item in result)
