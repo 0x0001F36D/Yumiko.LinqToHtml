@@ -10,7 +10,6 @@
         Regex AttributeRule { get; }
         string Content { get; }
         IList<Attribute> Attributes { get; }
-
         string OriginAttributes { get; }
     }
 }

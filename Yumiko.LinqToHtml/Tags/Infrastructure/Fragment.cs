@@ -5,9 +5,6 @@
     using System.Linq;
     using System.Text.RegularExpressions;
     using Interfaces;
-    using Helper;
-    using System;
-
     public class Fragment : IFragment
     {
         private static Regex at_rule;
@@ -28,17 +25,10 @@
             at_rule = new Regex(@"\s(?<key>[a-zA-Z\-]+)(\s*=\s*(((?<_>['""])(?<value>[^'""]*)\k<_>)|(?<value>[^\s]+)))?", RegexOptions.ExplicitCapture);
             this.resolver(this.OriginAttributes =attributes);
         }
-        private void resolver(string attributes)
-        {
-            this.Attributes = this.AttributeRule.Matches(attributes).Cast<Match>().Select(x => new Attribute(x.Groups["key"].Value, x.Groups["value"].Value)).ToList();
-        }
-
+        private void resolver(string attributes) => this.Attributes = this.AttributeRule.Matches(attributes).Cast<Match>().Select(x => new Attribute(x.Groups["key"].Value, x.Groups["value"].Value)).ToList();
         public IEnumerator<Attribute> GetEnumerator() => this.Attributes.GetEnumerator();
-
         IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
-
         public bool Contains(string key) => this.Attributes.Count(x => x.Key == key) >=1;
-
         IEnumerator<IGrouping<string, Attribute>> IEnumerable<IGrouping<string, Attribute>>.GetEnumerator()=>this.Attributes.GroupBy(x => x.Key).GetEnumerator();
         
     }
