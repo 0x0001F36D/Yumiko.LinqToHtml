@@ -33,10 +33,7 @@ namespace Yumiko.LinqToHtml.XParser
         }
         public XParser Query(params Scopes[] scopes )
         {
-            foreach (var scope in scopes)
-            {
-                Result = scope.Generate(Result);
-            }
+            this.Result = scopes.Aggregate(this.Result, (accumulate, aggregate) => aggregate.Generate(accumulate));
             return this;
         }
         public IEnumerable<string> Select(string key) => Result?.SelectMany(x => x[key]);

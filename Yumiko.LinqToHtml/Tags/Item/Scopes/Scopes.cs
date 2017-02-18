@@ -13,8 +13,11 @@ namespace Yumiko.LinqToHtml.Tags.Item.Scopes
         }
         private Type t;
         public ITag Generate(ITag parent)=> t.GetConstructor(new[] { typeof(ITag) })?.Invoke(new[] { parent }) as ITag;
+
         public readonly static Scopes Comment =new Scopes(typeof(Comment));
         public readonly static Scopes Doctype =new Scopes( typeof(Doctype));
+   //     internal readonly static Scopes Root = new Scopes(typeof(Root));
+
 
         public readonly static Scopes A =new Scopes( typeof(A));
         public readonly static Scopes Abbr =new Scopes( typeof(Abbr));
