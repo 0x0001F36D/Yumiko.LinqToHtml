@@ -1,17 +1,11 @@
 ﻿
 namespace Yumiko.LinqToHtml.Tags.Infrastructure
 {
-    using Item.Scopes;
     using System;
     using System.Collections;
     using System.Collections.Generic;
-    using System.Collections.ObjectModel;
     using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using Yumiko.LinqToHtml.Interfaces;
-
-
+    using Interfaces;
     public abstract class Tag : ITag
     {
         public const char EmptyCharacter =  default(char);
@@ -34,10 +28,7 @@ namespace Yumiko.LinqToHtml.Tags.Infrastructure
             this.ParentTag = parent;
             this.TagName = this.GetType().Name;
         }
-
         protected void RunFragment()=> this.contents = new List<IFragment>(this.ParentTag.Select(x => GetFragments?.Invoke(x.Content)).SelectMany(x => x));
-        
-
         public abstract FragmentHandler GetFragments { get; }
 
     }
