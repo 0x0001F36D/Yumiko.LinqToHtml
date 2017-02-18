@@ -16,7 +16,7 @@
         public virtual Regex AttributeRule => at_rule;
         public int Count => this.Attributes.Count;
 
-        public IEnumerable<string> this[string key]=>this.Attributes.Where(x=>x.Key == key).Select(x=>x.Value);
+        public IEnumerable<Attribute> this[string key]=>this.Attributes.Where(x=>x.Key == key);
 
         public Attribute this[int index] => this.Attributes[index];
         
@@ -38,7 +38,8 @@
         IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
 
         public bool Contains(string key) => this.Attributes.Count(x => x.Key == key) >=1;
-        IEnumerator<IGrouping<string, string>> IEnumerable<IGrouping<string, string>>.GetEnumerator()=>  this.Attributes.GroupBy(x => x.Key, x => x.Value).GetEnumerator();
+
+        IEnumerator<IGrouping<string, Attribute>> IEnumerable<IGrouping<string, Attribute>>.GetEnumerator()=>this.Attributes.GroupBy(x => x.Key).GetEnumerator();
         
     }
 }

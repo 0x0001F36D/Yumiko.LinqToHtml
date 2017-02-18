@@ -3,11 +3,13 @@
     using System.Linq;
     using System.Collections.Generic;
     using System.Text.RegularExpressions;
-    public interface IFragment : IReadOnlyList<Tags.Infrastructure.Attribute>,ILookup<string,string>
+    using Tags.Infrastructure;
+
+    public interface IFragment : IReadOnlyList<Attribute>,ILookup<string,Attribute>,IEnumerable<Attribute>
     {
         Regex AttributeRule { get; }
         string Content { get; }
-        IList<Tags.Infrastructure.Attribute> Attributes { get; }
+        IList<Attribute> Attributes { get; }
 
         string OriginAttributes { get; }
     }

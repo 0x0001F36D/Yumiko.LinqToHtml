@@ -2,16 +2,10 @@
 {
     using System;
     using System.Text;
-    using System.Reflection;
     using System.Net;
-    using Tags;
-    using System.IO;
     using System.Collections.Generic;
-    using Tags.Item;
     using Tags.Item.Scopes;
-    using System.Text.RegularExpressions;
-    using System.Xml;
-    using System.Linq;
+    using Yumiko.LinqToHtml.XParser;
     using System.Linq.Expressions;
 
     public static class s
@@ -58,8 +52,13 @@
             sw.Start();
 
 
-            var result = XParser.XParser.Load(html)
-                .Query(Scopes.Div, Scopes.Span,Scopes.Img)
+            var result = XParser.Load(html)
+                .Query(new[] 
+                {
+                    Scopes.Div,
+                    Scopes.Span,
+                    Scopes.Img
+                })
                 .Select("src");
             foreach (var item in result)
             {
