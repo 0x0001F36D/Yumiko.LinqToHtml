@@ -39,7 +39,7 @@
     <Reference Include="System.XML" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Yumiko.LinqToHtml">
-      <HintPath>..\Yumiko.LinqToHtml\bin\Debug\Yumiko.LinqToHtml.dll</HintPath>
+      <HintPath>..\Yumiko.LinqToHtml\obj\Debug\Yumiko.LinqToHtml.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
