@@ -36,6 +36,7 @@ namespace Yumiko.LinqToHtml.XParser
             this.Result = scopes.Aggregate(this.Result, (accumulate, aggregate) => aggregate.Generate(accumulate));
             return this;
         }
-        public IEnumerable<string> Select(string key) => Result?.SelectMany(x => x[key]);
+        public IEnumerable<string> Select(string key) => new HashSet<string>(Result?.SelectMany(x => x[key]));
+        
     }
 }
