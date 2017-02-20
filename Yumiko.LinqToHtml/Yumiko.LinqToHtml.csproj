@@ -165,7 +165,7 @@
     <Compile Include="Tags\Item\Pair\Ul.cs" />
     <Compile Include="Tags\Item\Pair\Var.cs" />
     <Compile Include="Tags\Item\Pair\Video.cs" />
-    <Compile Include="Tags\Item\Scopes\Scopes.cs" />
+    <Compile Include="Tags\Scopes\Scope.cs" />
     <Compile Include="Tags\Item\Single\Area.cs" />
     <Compile Include="Tags\Item\Single\Base.cs" />
     <Compile Include="Tags\Item\Single\Br.cs" />

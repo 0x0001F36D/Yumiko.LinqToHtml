@@ -4,7 +4,7 @@
     using System.Text;
     using System.Net;
     using System.Collections.Generic;
-    using Tags.Item.Scopes;
+    using Tags.Scope;
     using Yumiko.LinqToHtml.XParser;
     using System.Linq.Expressions;
     using System.Linq;
@@ -31,11 +31,11 @@
             var result = XParser.Load(html)
                 .Query(new[]
                 {
-                    Scopes.Meta
+                    Scope.Custom("sentenceText",Tags.Item.TagType.Pair)
                 }).Result;
-            foreach (var item in result.SelectMany(x=>x.Attributes))
+            foreach (var item in result)
             {
-                Console.WriteLine(item);
+                Console.WriteLine(item.Content);
             }
 
             Console.WriteLine("==============================");

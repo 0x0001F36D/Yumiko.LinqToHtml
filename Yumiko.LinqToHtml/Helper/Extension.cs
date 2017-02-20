@@ -9,7 +9,7 @@ using Yumiko.LinqToHtml.Tags.Infrastructure;
 
 namespace Yumiko.LinqToHtml.Helper
 {
-    public static class Extension
+    public static partial class Extension
     {
         static readonly Regex split_rule = new Regex("(<[^>]+>)");
         public static IEnumerable<string> HtmlSeparator(string html) => split_rule.Split(html);

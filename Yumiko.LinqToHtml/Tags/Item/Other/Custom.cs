@@ -20,7 +20,7 @@
             if (string.IsNullOrWhiteSpace(tagName))
                 throw new ArgumentNullException(nameof(tagName));
             this.tagName = tagName;
-            var tag = ignoreCase ? tagNameHandler(this.TagName) : this.tagName;
+            var tag = (this.IgnoreCase =ignoreCase )? tagNameHandler(this.TagName) : this.tagName;
             switch (this.Type = type)
             {
                 case TagType.Single:
@@ -35,6 +35,7 @@
             }
             this.RunFragment();
         }
+        public bool IgnoreCase { get; private set; }
         public TagType Type { get; private set; }
         private string tagName;
         public override string TagName => tagName;

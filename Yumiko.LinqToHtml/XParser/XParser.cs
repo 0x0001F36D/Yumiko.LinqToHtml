@@ -5,8 +5,9 @@ namespace Yumiko.LinqToHtml.XParser
     using System.Linq;
     using Interfaces;
     using Tags;
-    using Tags.Item.Scopes;
+    using Tags.Scope;
     using Tags.Infrastructure;
+    using Tags.Scope;
 
     public sealed class XParser
     {
@@ -25,7 +26,7 @@ namespace Yumiko.LinqToHtml.XParser
             this.Result = this.root;
             return this;
         }
-        public XParser Query(params Scopes[] scopes)
+        public XParser Query(params Scope[] scopes)
         {
             this.Result = scopes.Aggregate(this.Result, (accumulate, aggregate) => aggregate.Generate(accumulate));
             return this;
