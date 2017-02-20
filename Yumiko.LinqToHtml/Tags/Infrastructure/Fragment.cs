@@ -30,6 +30,10 @@
         IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
         public bool Contains(string key) => this.Attributes.Count(x => x.Key == key) >=1;
         IEnumerator<IGrouping<string, Attribute>> IEnumerable<IGrouping<string, Attribute>>.GetEnumerator()=>this.Attributes.GroupBy(x => x.Key).GetEnumerator();
-        
+
+        public override string ToString()
+        {
+            return string.Join("\n", this.Attributes) + "\n" + this.Content + "\n";
+        }
     }
 }

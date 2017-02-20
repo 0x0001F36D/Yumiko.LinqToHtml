@@ -31,9 +31,10 @@
             var result = XParser.Load(html)
                 .Query(new[]
                 {
-                    Scope.Custom("sentenceText",Tags.Item.TagType.Pair)
-                }).Result;
-            foreach (var item in result)
+                    Scope.Custom("sentenceText",Tags.Item.TagType.Pair),
+                });
+            
+            foreach (var item in result.QueryResult)
             {
                 Console.WriteLine(item.Content);
             }

@@ -14,26 +14,35 @@ namespace Yumiko.LinqToHtml.XParser
         public static XParser Load(string html) => new XParser(html);
         public string Source { get; private set; }
 
-        public ITag Result { get; private set; }
+        public ITag QueryResult { get; private set; }
         private readonly Root root;
+        public IReadOnlyList<Scope> Scopes { get; private set; }
         private XParser(string html)
         {
             this.root = Root.Create(this.Source = html);
-            this.OmitResult();
+            this.OmitQueryResult();
         }
-        public XParser OmitResult()
+        public XParser OmitQueryResult()
         {
-            this.Result = this.root;
+            this.QueryResult = this.root;
             return this;
         }
         public XParser Query(params Scope[] scopes)
         {
-            this.Result = scopes.Aggregate(this.Result, (accumulate, aggregate) => aggregate.Generate(accumulate));
+            this.Scopes = new List<Scope>(scopes);
+            this.QueryResult = scopes.Aggregate(this.QueryResult, (accumulate, aggregate) => aggregate.Generate(accumulate));
             return this;
         }
-        
 
-        public IEnumerable<Attribute> SelectAttributes(params string[] keys)=> new HashSet<Attribute>(keys.SelectMany(x => this.Result.SelectMany(xx => xx[x])));
+        public IEnumerable<IFragment> SelectContents(params string[] keys)
+        {
+            var res = from q in this.QueryResult
+                      from p in keys
+                      where q.Content.Contains(p)
+                      select q;
+            return res;
+        }
+            public IEnumerable<Attribute> SelectAttributes(params string[] keys)=> new HashSet<Attribute>(keys.SelectMany(x => this.QueryResult.SelectMany(xx => xx[x])));
 
     }
 }

@@ -4,7 +4,7 @@
     using System.Collections.Generic;
     using System.Text.RegularExpressions;
     using Tags.Infrastructure;
-
+    
     public interface IFragment : IReadOnlyList<Attribute>,ILookup<string,Attribute>,IEnumerable<Attribute>
     {
         Regex AttributeRule { get; }
