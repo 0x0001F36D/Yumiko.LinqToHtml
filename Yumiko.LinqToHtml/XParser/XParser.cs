@@ -29,20 +29,6 @@ namespace Yumiko.LinqToHtml.XParser
         public XParser Query(params Scope[] scopes)
         {
             this.Scopes = new List<Scope>(scopes);
-         /*   foreach (var scope in scopes)
-            {
-                var tags = scope.Generate(this.QueryResult);
-                foreach (var tag in tags)
-                    foreach (var attr in scope.Attributes)
-                    {
-                        if (!tag.Attributes.Contains(attr))
-                            tags.Remove(tag);
-                    }
-
-
-                this.QueryResult = tags;
-
-            }*/
             this.QueryResult = scopes.Aggregate(this.QueryResult, (accumulate, aggregate) => aggregate.Generate(accumulate));
             return this;
         }

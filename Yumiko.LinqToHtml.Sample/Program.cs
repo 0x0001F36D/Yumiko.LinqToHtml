@@ -22,7 +22,7 @@
             var html = new WebClient
             {
                 Headers = header,
-                Encoding = Encoding.UTF8
+                Encoding  = Encoding.UTF8
             }.DownloadStringTaskAsync(urls[0]).Result;
             sw.Start();
 
@@ -30,16 +30,13 @@
             var result = XParser.Load(html)
                 .Query(new[]
                 {
-                    Scope.Div.QueryByAttribute(new[] { "class" }),
-                    Scope.Li,
-                    Scope.A
+                    Scope.Div
                 });
           
 
             foreach (var item in result.QueryResult)
             {
                 
-             //   var span = result.Query(Scope.Span).QueryResult;
                 Console.WriteLine(item);
             }
 

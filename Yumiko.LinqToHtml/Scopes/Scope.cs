@@ -12,17 +12,16 @@ namespace Yumiko.LinqToHtml.Scope
     {
 
         private Scope(Type type)
-        {
+        { 
             this.type = type;
             this.args = new Dictionary<Type, object>(0);
-            this.Keys = new List<string>();
         }
         private IDictionary<Type,object> args;
         private Type type;
-        internal List<string> Keys { get; private set; }
-        internal List<string> Keywords { get; private set; }
 
-        internal ITag Generate(ITag parent) => this
+        internal ITag Generate(ITag parent)
+        {
+            var tag = this
             .type
             .GetConstructor(new[]
             {
@@ -34,7 +33,8 @@ namespace Yumiko.LinqToHtml.Scope
                 parent
             }
             .Concat(args.Values).ToArray()) as ITag;
-        
+            return tag;
+        }
         private Scope(Type type , string tagName, TagType tagType, bool ignoreCase)
         {
             this.type = type;
@@ -45,9 +45,9 @@ namespace Yumiko.LinqToHtml.Scope
                 [typeof(bool)] = ignoreCase
             };
         }
+        
 
-
-        #region Non-Args
+        #region Tags
         public static Scope Custom(string tagName, TagType tagType, bool ignoreCase=true) => new Scope(typeof(Custom), tagName, tagType, ignoreCase);
         public readonly static Scope Comment = new Scope(typeof(Comment));
         public readonly static Scope Doctype = new Scope(typeof(Doctype));
@@ -175,16 +175,6 @@ namespace Yumiko.LinqToHtml.Scope
         public readonly static Scope Wbr = new Scope(typeof(Wbr));
         #endregion
         
-        public Scope QueryByAttribute(string[] keys)
-        {
-            this.Keys.AddRange(keys);
-            return this;
-        }
-        public Scope QueryByContent(string[] keywords)
-        {
-            this.Keywords.AddRange(keywords);
-            return this;
-        }
 
     }
 }

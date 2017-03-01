@@ -15,11 +15,12 @@ namespace Yumiko.LinqToHtml.Tags.Infrastructure
         public IEnumerator<IFragment> GetEnumerator()=> ((IEnumerable<IFragment>)this.contents).GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator()=> ((IEnumerable<IFragment>)this.contents).GetEnumerator();
         public ITag ParentTag { get; private set; }
+
         internal Tag(string html)
         {
             if (string.IsNullOrWhiteSpace(html))
                 throw new ArgumentNullException(nameof(html));
-            this.contents = ((IEnumerable<IFragment>)new[] { new Fragment(string.Empty , html ) }).ToList();
+            this.contents = ((IEnumerable<IFragment>)new[] { new Fragment(string.Empty, html) }).ToList();
         }
         public Tag(ITag parent)
         {
