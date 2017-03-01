@@ -5,11 +5,11 @@
     using System.Text.RegularExpressions;
     using Tags.Infrastructure;
     
-    public interface IFragment : IReadOnlyList<Attribute>,ILookup<string,Attribute>,IEnumerable<Attribute>
+    public interface IFragment : IReadOnlyList<TagAttribute>,ILookup<string,TagAttribute>,IEnumerable<TagAttribute>
     {
         Regex AttributeRule { get; }
         string Content { get; }
-        IList<Attribute> Attributes { get; }
+        IList<TagAttribute> Attributes { get; }
         string OriginAttributes { get; }
     }
 }

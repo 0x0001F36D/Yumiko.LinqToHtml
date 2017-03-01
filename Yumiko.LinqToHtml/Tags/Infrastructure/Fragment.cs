@@ -8,14 +8,14 @@
     public class Fragment : IFragment
     {
         private static Regex at_rule;
-        public IList<Attribute> Attributes { get; private set; }
+        public IList<TagAttribute> Attributes { get; private set; }
         public string Content { get; private set; }
         public virtual Regex AttributeRule => at_rule;
         public int Count => this.Attributes.Count;
 
-        public IEnumerable<Attribute> this[string key]=>this.Attributes.Where(x=>x.Key == key);
+        public IEnumerable<TagAttribute> this[string key]=>this.Attributes.Where(x=>x.Key == key);
 
-        public Attribute this[int index] => this.Attributes[index];
+        public TagAttribute this[int index] => this.Attributes[index];
         
         public string OriginAttributes { get; private set; }
 
@@ -25,11 +25,11 @@
             at_rule = new Regex(@"\s(?<key>[a-zA-Z\-]+)(\s*=\s*(((?<_>['""])(?<value>[^'""]*)\k<_>)|(?<value>[^\s]+)))?", RegexOptions.ExplicitCapture);
             this.resolver(this.OriginAttributes =attributes);
         }
-        private void resolver(string attributes) => this.Attributes = this.AttributeRule.Matches(attributes).Cast<Match>().Select(x => new Attribute(x.Groups["key"].Value, x.Groups["value"].Value)).ToList();
-        public IEnumerator<Attribute> GetEnumerator() => this.Attributes.GetEnumerator();
+        private void resolver(string attributes) => this.Attributes = this.AttributeRule.Matches(attributes).Cast<Match>().Select(x => new TagAttribute(x.Groups["key"].Value, x.Groups["value"].Value)).ToList();
+        public IEnumerator<TagAttribute> GetEnumerator() => this.Attributes.GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
         public bool Contains(string key) => this.Attributes.Count(x => x.Key == key) >=1;
-        IEnumerator<IGrouping<string, Attribute>> IEnumerable<IGrouping<string, Attribute>>.GetEnumerator()=>this.Attributes.GroupBy(x => x.Key).GetEnumerator();
+        IEnumerator<IGrouping<string, TagAttribute>> IEnumerable<IGrouping<string, TagAttribute>>.GetEnumerator()=>this.Attributes.GroupBy(x => x.Key).GetEnumerator();
 
         public override string ToString()
         {

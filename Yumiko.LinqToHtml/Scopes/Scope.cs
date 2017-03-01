@@ -1,26 +1,43 @@
 ﻿
-namespace Yumiko.LinqToHtml.Tags.Scope
+namespace Yumiko.LinqToHtml.Scope
 {
     using System.Linq;
     using System.Collections.Generic;
-    using Interfaces;
-    using Item;
+    using Yumiko.LinqToHtml.Interfaces;
+    using Yumiko.LinqToHtml.Tags.Item;
     using System;
+    using Yumiko.LinqToHtml.Tags.Infrastructure;
+
     public sealed class Scope
     {
 
         private Scope(Type type)
         {
-            this.t = type;
+            this.type = type;
             this.args = new Dictionary<Type, object>(0);
+            this.Keys = new List<string>();
         }
         private IDictionary<Type,object> args;
-        private Type t;
-        internal ITag Generate(ITag parent) => t.GetConstructor(new[] { typeof(ITag) }.Concat(args.Keys).ToArray())?.Invoke(new[] { parent }.Concat(args.Values).ToArray()) as ITag;
+        private Type type;
+        internal List<string> Keys { get; private set; }
+        internal List<string> Keywords { get; private set; }
+
+        internal ITag Generate(ITag parent) => this
+            .type
+            .GetConstructor(new[]
+            {
+                typeof(ITag)
+            }
+            .Concat(args.Keys).ToArray())?
+            .Invoke(new[]
+            {
+                parent
+            }
+            .Concat(args.Values).ToArray()) as ITag;
         
         private Scope(Type type , string tagName, TagType tagType, bool ignoreCase)
         {
-            this.t = type;
+            this.type = type;
             this.args = new Dictionary<Type, object>
             {
                 [typeof(string)] = tagName,
@@ -29,8 +46,9 @@ namespace Yumiko.LinqToHtml.Tags.Scope
             };
         }
 
-        public static Scope Custom(string tagName, TagType tagType, bool ignoreCase=true) => new Scope(typeof(Custom), tagName, tagType, ignoreCase);
 
+        #region Non-Args
+        public static Scope Custom(string tagName, TagType tagType, bool ignoreCase=true) => new Scope(typeof(Custom), tagName, tagType, ignoreCase);
         public readonly static Scope Comment = new Scope(typeof(Comment));
         public readonly static Scope Doctype = new Scope(typeof(Doctype));
         public readonly static Scope A = new Scope(typeof(A));
@@ -111,7 +129,7 @@ namespace Yumiko.LinqToHtml.Tags.Scope
         public readonly static Scope Nav = new Scope(typeof(Nav));
         public readonly static Scope Noframes = new Scope(typeof(Noframes));
         public readonly static Scope Noscript = new Scope(typeof(Noscript));
-        public readonly static Scope Object = new Scope(typeof(Item.Object));
+        public readonly static Scope Object = new Scope(typeof(Tags.Item.Object));
         public readonly static Scope Ol = new Scope(typeof(Ol));
         public readonly static Scope Optgroup = new Scope(typeof(Optgroup));
         public readonly static Scope Option = new Scope(typeof(Option));
@@ -155,6 +173,19 @@ namespace Yumiko.LinqToHtml.Tags.Scope
         public readonly static Scope Var = new Scope(typeof(Var));
         public readonly static Scope Video = new Scope(typeof(Video));
         public readonly static Scope Wbr = new Scope(typeof(Wbr));
+        #endregion
+        
+        public Scope QueryByAttribute(string[] keys)
+        {
+            this.Keys.AddRange(keys);
+            return this;
+        }
+        public Scope QueryByContent(string[] keywords)
+        {
+            this.Keywords.AddRange(keywords);
+            return this;
+        }
+
     }
 }
 

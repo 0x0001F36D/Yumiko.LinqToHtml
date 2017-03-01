@@ -17,8 +17,9 @@ namespace Yumiko.LinqToHtml.Tags.Infrastructure
             this.RunFragment();
         }
         public override FragmentHandler GetFragments => getSingle;
-        private IEnumerable<IFragment> getSingle(string html)
+        private ICollection<IFragment> getSingle(string html)
         {
+            var l = new List<IFragment>();
             foreach (var content in Extension.HtmlSeparator(html))
             {
                 if (LineTagRule.IsMatch(content))
@@ -26,9 +27,10 @@ namespace Yumiko.LinqToHtml.Tags.Infrastructure
                     var v = LineTagRule.Match(content).Groups["attribute"].Value;
                     var st = html.IndexOf(content);
                     html = html.Remove(st, content.Length).Insert(st, new string(Enumerable.Repeat(EmptyCharacter, content.Length).ToArray()));
-                    yield return new Fragment(v, null);
+                    l.Add(new Fragment(v, null));
                 }
             }
+            return l;
         }
 
 

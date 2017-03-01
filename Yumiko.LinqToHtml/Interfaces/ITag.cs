@@ -9,8 +9,8 @@ namespace Yumiko.LinqToHtml.Interfaces
     using System.Text.RegularExpressions;
     using Tags.Infrastructure;
 
-    public delegate IEnumerable<IFragment> FragmentHandler(string content);
-    public interface ITag:IEnumerable<IFragment>
+    public delegate ICollection<IFragment> FragmentHandler(string content);
+    public interface ITag:IEnumerable<IFragment>,ICollection<IFragment>
     {
         string TagName { get; }
         ITag ParentTag { get; }

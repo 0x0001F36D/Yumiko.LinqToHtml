@@ -49,9 +49,8 @@
     <Compile Include="Interfaces\IPairTag.cs" />
     <Compile Include="Interfaces\ISingleTag.cs" />
     <Compile Include="Interfaces\ITag.cs" />
-    <Compile Include="Interfaces\ITagAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Tags\Infrastructure\Attribute.cs" />
+    <Compile Include="Tags\Infrastructure\TagAttribute.cs" />
     <Compile Include="Tags\Infrastructure\Fragment.cs" />
     <Compile Include="Tags\Infrastructure\PairTag.cs" />
     <Compile Include="Tags\Infrastructure\SingleTag.cs" />
@@ -165,7 +164,7 @@
     <Compile Include="Tags\Item\Pair\Ul.cs" />
     <Compile Include="Tags\Item\Pair\Var.cs" />
     <Compile Include="Tags\Item\Pair\Video.cs" />
-    <Compile Include="Tags\Scopes\Scope.cs" />
+    <Compile Include="Scopes\Scope.cs" />
     <Compile Include="Tags\Item\Single\Area.cs" />
     <Compile Include="Tags\Item\Single\Base.cs" />
     <Compile Include="Tags\Item\Single\Br.cs" />

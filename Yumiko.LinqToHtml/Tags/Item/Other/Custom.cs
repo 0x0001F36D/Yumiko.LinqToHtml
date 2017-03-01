@@ -46,8 +46,9 @@
         public  Regex StartTagRule => st_rule;
         public Regex LineTagRule => ln_rule;
         public override FragmentHandler GetFragments => Type == TagType.Single ? (FragmentHandler)getSingle : getPair;
-        private IEnumerable<IFragment> getSingle(string html)
+        private ICollection<IFragment> getSingle(string html)
         {
+            var l = new List<IFragment>();
             foreach (var content in Extension.HtmlSeparator(html))
             {
                 if (LineTagRule.IsMatch(content))
@@ -55,12 +56,14 @@
                     var v = LineTagRule.Match(content).Groups["attribute"].Value;
                     var st = html.IndexOf(content);
                     html = html.Remove(st, content.Length).Insert(st, new string(Enumerable.Repeat(EmptyCharacter, content.Length).ToArray()));
-                    yield return new Fragment(v,null);
+                   l.Add(new Fragment(v,null));
                 }
             }
+            return l;
         }
-        private IEnumerable<Fragment> getPair(string html)
+        private ICollection<IFragment> getPair(string html)
         {
+            var l = new List<IFragment>();
             #region 
             var stack = new Stack<Tuple<int, string>>();
             foreach (var subStr in Extension.HtmlSeparator(html))
@@ -84,11 +87,12 @@
                          .Remove(st, (ed + subStr.Length) - st)
                          .Insert(st, new string(Enumerable.Repeat(EmptyCharacter, (ed + subStr.Length) - st).ToArray()));
                     if (c != string.Empty)
-                        yield return new Fragment(tmp.Item2,c);
+                        l.Add(new Fragment(tmp.Item2,c));
                 }
                 #endregion
             }
             #endregion
+            return l;
         }
 
     }
