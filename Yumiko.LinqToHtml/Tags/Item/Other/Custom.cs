@@ -15,12 +15,12 @@
     }
     public sealed class Custom : Tag, IPairTag, ISingleTag
     {
-        public Custom(ITag parent, string tagName,TagType type , bool ignoreCase = true) : base(parent)
+        public Custom(ITag parent, string tagName, TagType type, bool ignoreCase = true) : base(parent)
         {
             if (string.IsNullOrWhiteSpace(tagName))
                 throw new ArgumentNullException(nameof(tagName));
             this.tagName = tagName;
-            var tag = (this.IgnoreCase =ignoreCase )? tagNameHandler(this.TagName) : this.tagName;
+            var tag = (this.IgnoreCase = ignoreCase) ? tagNameHandler(this.TagName) : this.tagName;
             switch (this.Type = type)
             {
                 case TagType.Single:
@@ -42,13 +42,13 @@
         private static Regex ed_rule;
         private static Regex st_rule;
         private static Regex ln_rule;
-        public  Regex EndTagRule => ed_rule;
-        public  Regex StartTagRule => st_rule;
+        public Regex EndTagRule => ed_rule;
+        public Regex StartTagRule => st_rule;
         public Regex LineTagRule => ln_rule;
-        public override FragmentHandler GetFragments => Type == TagType.Single ? (FragmentHandler)getSingle : getPair;
-        private ICollection<IFragment> getSingle(string html)
+        public override FragmentHandler GetFragments => (Type == TagType.Single ? (FragmentHandler)getSingle : getPair);
+
+        private IEnumerable<IFragment> getSingle(string html)
         {
-            var l = new List<IFragment>();
             foreach (var content in Extension.HtmlSeparator(html))
             {
                 if (LineTagRule.IsMatch(content))
@@ -56,14 +56,13 @@
                     var v = LineTagRule.Match(content).Groups["attribute"].Value;
                     var st = html.IndexOf(content);
                     html = html.Remove(st, content.Length).Insert(st, new string(Enumerable.Repeat(EmptyCharacter, content.Length).ToArray()));
-                   l.Add(new Fragment(v,null));
+                    yield return new Fragment(v, null);
                 }
             }
-            return l;
         }
-        private ICollection<IFragment> getPair(string html)
+
+        private IEnumerable<IFragment> getPair(string html)
         {
-            var l = new List<IFragment>();
             #region 
             var stack = new Stack<Tuple<int, string>>();
             foreach (var subStr in Extension.HtmlSeparator(html))
@@ -87,15 +86,13 @@
                          .Remove(st, (ed + subStr.Length) - st)
                          .Insert(st, new string(Enumerable.Repeat(EmptyCharacter, (ed + subStr.Length) - st).ToArray()));
                     if (c != string.Empty)
-                        l.Add(new Fragment(tmp.Item2,c));
+                        yield return new Fragment(tmp.Item2, c);
                 }
                 #endregion
             }
             #endregion
-            return l;
         }
 
     }
-    
-    
+
 }

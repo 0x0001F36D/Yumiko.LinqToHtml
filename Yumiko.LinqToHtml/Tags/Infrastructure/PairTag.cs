@@ -23,9 +23,8 @@ namespace Yumiko.LinqToHtml.Tags.Infrastructure
         }
 
         public override FragmentHandler GetFragments => getPair;
-        private ICollection<IFragment> getPair(string html)
+        private IEnumerable<IFragment> getPair(string html)
         {
-            var l = new List<IFragment>();
             #region 
             var stack = new Stack<Tuple<int, string>>();
             foreach (var subStr in Extension.HtmlSeparator(html))
@@ -49,12 +48,11 @@ namespace Yumiko.LinqToHtml.Tags.Infrastructure
                          .Remove(st, (ed + subStr.Length) - st)
                          .Insert(st, new string(Enumerable.Repeat(EmptyCharacter, (ed + subStr.Length) - st).ToArray()));
                     if (c != string.Empty)
-                        l.Add( new Fragment(tmp.Item2,c));
+                       yield return new Fragment(tmp.Item2,c);
                 }
                 #endregion
             }
             #endregion
-            return l;
         }
 
     }
