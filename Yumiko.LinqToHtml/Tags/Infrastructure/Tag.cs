@@ -5,6 +5,7 @@ namespace Yumiko.LinqToHtml.Tags.Infrastructure
     using System.Collections;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Reflection;
     using Interfaces;
     public abstract class Tag : ITag
     {
@@ -15,7 +16,15 @@ namespace Yumiko.LinqToHtml.Tags.Infrastructure
         public IEnumerator<IFragment> GetEnumerator()=> ((IEnumerable<IFragment>)this.contents).GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator()=> ((IEnumerable<IFragment>)this.contents).GetEnumerator();
         public ITag ParentTag { get; private set; }
-
+        internal static ITag DynamicCreate(string tagName , ITag parentTag)
+        {
+            var t = from asm in AppDomain.CurrentDomain.GetAssemblies()
+                    from a in asm.GetTypes()
+                    where a.GetInterfaces().Any(x => x == typeof(ITag)) & !a.IsAbstract & a.Name.ToLower() == tagName.ToLower()
+                    select a;
+            var type = t.SingleOrDefault();
+                    
+        }
         internal Tag(string html)
         {
             if (string.IsNullOrWhiteSpace(html))

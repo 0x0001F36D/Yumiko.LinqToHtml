@@ -7,6 +7,7 @@ namespace Yumiko.LinqToHtml.Scope
     using Yumiko.LinqToHtml.Tags.Item;
     using System;
     using Yumiko.LinqToHtml.Tags.Infrastructure;
+    using Tags;
 
     public sealed class Scope
     {
@@ -33,7 +34,10 @@ namespace Yumiko.LinqToHtml.Scope
                 parent
             }
             .Concat(args.Values).ToArray()) as ITag;
-            return tag;
+            var n = tag.TagName;
+            var p = tag.ParentTag;
+            var o = tag.GetFragments;
+            return lt as ITag;
         }
         private Scope(Type type , string tagName, TagType tagType, bool ignoreCase)
         {
