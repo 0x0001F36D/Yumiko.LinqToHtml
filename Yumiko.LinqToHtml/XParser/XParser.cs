@@ -7,8 +7,9 @@ namespace Yumiko.LinqToHtml.XParser
     using Tags;
     using Scope;
     using Tags.Infrastructure;
+    using System;
 
-    public sealed class XParser
+    public class XParser
     {
         public static XParser Load(string html) => new XParser(html);
         public string Source { get; private set; }
@@ -31,6 +32,23 @@ namespace Yumiko.LinqToHtml.XParser
             this.Scopes = new List<Scope>(scopes);
             this.QueryResult = scopes.Aggregate(this.QueryResult, (accumulate, aggregate) => aggregate.Generate(accumulate));
             return this;
+        }
+        public IEnumerable<ROut> ForEach<RIn,ROut>(Func<RIn,ROut> function) where RIn : XParser,IFragment,IEnumerable<TagAttribute>
+        {
+            var t = typeof(RIn);
+            if (t == typeof(XParser))
+            {
+
+            }
+            else if (t is IEnumerable<TagAttribute>)
+            {
+
+            }
+            else if (t is IFragment)
+            {
+
+            }
+            return default(IEnumerable<ROut>);
         }
 
         public IEnumerable<IFragment> WhenContentHas(params string[] keyword)
