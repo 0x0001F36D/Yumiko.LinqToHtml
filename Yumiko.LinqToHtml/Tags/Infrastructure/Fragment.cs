@@ -25,6 +25,7 @@
             at_rule = new Regex(@"\s(?<key>[a-zA-Z\-]+)(\s*=\s*(((?<_>['""])(?<value>[^'""]*)\k<_>)|(?<value>[^\s]+)))?", RegexOptions.ExplicitCapture);
             this.resolver(this.OriginAttributes = attributes);
         }
+
         private void resolver(string attributes) => 
             this.Attributes = 
             this
@@ -32,9 +33,13 @@
             .Matches(attributes)
             .Cast<Match>()
             .Select(x => new TagAttribute(x.Groups["key"].Value, x.Groups["value"].Value)).ToList();
+
         public IEnumerator<TagAttribute> GetEnumerator() => this.Attributes.GetEnumerator();
+
         IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
+
         public bool Contains(string key) => this.Attributes.Count(x => x.Key == key) >0;
+
         IEnumerator<IGrouping<string, TagAttribute>> IEnumerable<IGrouping<string, TagAttribute>>.GetEnumerator() => this.Attributes.GroupBy(x => x.Key).GetEnumerator();
 
         public override string ToString() => string.Join("\n", this.Attributes) + "\n" + this.Content + "\n";

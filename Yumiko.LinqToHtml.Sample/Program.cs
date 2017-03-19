@@ -5,7 +5,7 @@
     using System.Net;
     using System.Collections.Generic;
     using Scope;
-    using Yumiko.LinqToHtml.XParser;
+    using XParser;
     using System.Linq.Expressions;
     using System.Linq;
     using Yumiko.LinqToHtml.Tags.Infrastructure;
@@ -30,14 +30,13 @@
             var result = XParser.Load(html)
                 .Query(new[]
                 {
-                    Scope.Div
+                    Scope.A
                 });
           
 
-            foreach (var item in result.QueryResult)
+            foreach (var item in result.SelectAttributes("href"))
             {
-                
-                Console.WriteLine(item);
+                Console.WriteLine(item.Value);
             }
 
             Console.WriteLine("==============================");
