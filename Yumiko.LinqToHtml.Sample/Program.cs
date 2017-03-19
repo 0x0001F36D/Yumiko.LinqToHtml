@@ -32,11 +32,17 @@
                 {
                     Scope.A
                 });
-            
-            
-           
 
-            foreach (var item in result.SelectAttributeWhenAttributeKeyIs("href"))
+
+            var query = result
+                .WhenAttributeKeyIs("href")
+                .SelectMany(x=>x
+                    .Attributes
+                    .Where(v=>v
+                        .Value
+                        .Contains("microsoft")));
+
+            foreach (var item in query)
             {
                 Console.WriteLine(item);
             }
