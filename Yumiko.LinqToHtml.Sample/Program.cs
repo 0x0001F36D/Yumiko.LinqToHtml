@@ -33,11 +33,12 @@
                     Scope.A
                 });
             
+            
+           
 
-
-            foreach (var item in result.SelectAttributes("href"))
+            foreach (var item in result.SelectAttributeWhenAttributeKeyIs("href"))
             {
-                Console.WriteLine(item.Value);
+                Console.WriteLine(item);
             }
 
             Console.WriteLine("==============================");
