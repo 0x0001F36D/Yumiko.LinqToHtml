@@ -34,10 +34,7 @@ namespace Yumiko.LinqToHtml.Scope
                 parent
             }
             .Concat(args.Values).ToArray()) as ITag;
-            var n = tag.TagName;
-            var p = tag.ParentTag;
-            var o = tag.GetFragments;
-            return lt as ITag;
+            return tag;
         }
         private Scope(Type type , string tagName, TagType tagType, bool ignoreCase)
         {

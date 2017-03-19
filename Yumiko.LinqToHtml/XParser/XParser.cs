@@ -57,14 +57,14 @@ namespace Yumiko.LinqToHtml.XParser
                       from k in keyword
                       select q[k].Where(x => x.Value.Contains(k));
             return res;
-        }*/
+        }
 
         public IEnumerable<TagAttribute> SelectAttributeWhenAttributeValueHas(params string[] keyword)
         {
             var res = from q in this.QueryResult
                       from k in keyword
 
-        }
+        }*/
         public IEnumerable<TagAttribute> SelectAttributeWhenAttributeKeyIs(params string[] key)
         {
             var res = from fragment in this.WhenAttributeKeyIs(key)

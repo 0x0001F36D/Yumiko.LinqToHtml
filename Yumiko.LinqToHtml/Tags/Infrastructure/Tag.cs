@@ -16,6 +16,7 @@ namespace Yumiko.LinqToHtml.Tags.Infrastructure
         public IEnumerator<IFragment> GetEnumerator()=> ((IEnumerable<IFragment>)this.contents).GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator()=> ((IEnumerable<IFragment>)this.contents).GetEnumerator();
         public ITag ParentTag { get; private set; }
+        /*
         internal static ITag DynamicCreate(string tagName , ITag parentTag)
         {
             var t = from asm in AppDomain.CurrentDomain.GetAssemblies()
@@ -24,7 +25,7 @@ namespace Yumiko.LinqToHtml.Tags.Infrastructure
                     select a;
             var type = t.SingleOrDefault();
                     
-        }
+        }*/
         internal Tag(string html)
         {
             if (string.IsNullOrWhiteSpace(html))
