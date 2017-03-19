@@ -59,7 +59,7 @@ namespace Yumiko.LinqToHtml.XParser
                       select q;
             return  res;
         }
-        public IEnumerable<IFragment> WhenAttributeKeyIs(params string[] key)
+        public IEnumerable<IFragment> WhenAttributeKeyHas(params string[] key)
         {
             var res = from q in this.QueryResult
                       from k in key
@@ -85,7 +85,7 @@ namespace Yumiko.LinqToHtml.XParser
         }*/
         public IEnumerable<TagAttribute> SelectAttributeWhenAttributeKeyIs(params string[] key)
         {
-            var res = from fragment in this.WhenAttributeKeyIs(key)
+            var res = from fragment in this.WhenAttributeKeyHas(key)
                       from k in key
                       select fragment[k];
             var resw = new HashSet<TagAttribute>(res.SelectMany(x => x));

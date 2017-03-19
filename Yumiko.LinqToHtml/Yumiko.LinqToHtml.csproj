@@ -183,8 +183,10 @@
     <Compile Include="Tags\Item\Other\Root.cs" />
     <Compile Include="XCrawler\XCrawler.cs" />
     <Compile Include="XCrawler\XCrawlerConfiguration.cs" />
+    <Compile Include="XCrawler\XCrawlerExtension.cs" />
     <Compile Include="XCrawler\XCrawlerFilterRule.cs" />
     <Compile Include="XCrawler\XCrawlerFilterRuleList.cs" />
+    <Compile Include="XCrawler\XCrawlerPool.cs" />
     <Compile Include="XCrawler\XSiteTier.cs" />
     <Compile Include="XParser\XParser.cs" />
   </ItemGroup>

@@ -11,8 +11,9 @@ namespace Yumiko.LinqToHtml.XCrawler
 
     public class XCrawlerConfiguration : WebHeaderCollection
     {
-        public XCrawlerConfiguration(uint tier = 1, Encoding encoding = null, bool useSiteSearch = false, XCrawlerFilterRuleList rules  = null, bool useDefaultCredentials = false, IWebProxy proxy = null, ICredentials credentials = null)
+        public XCrawlerConfiguration(string site, uint tier = 1, Encoding encoding = null, bool useSiteSearch = false, XCrawlerFilterRuleList rules  = null, bool useDefaultCredentials = false, IWebProxy proxy = null, ICredentials credentials = null)
         {
+            this.Site = site;
             this.Encoding = encoding;
             this.Proxy = proxy;
             this.Tier = tier;
@@ -21,6 +22,8 @@ namespace Yumiko.LinqToHtml.XCrawler
             this.UseDefaultCredentials = useDefaultCredentials;
             this.Credentials = credentials;
         }
+
+        public string Site { get; private set; }
 
         public XCrawlerFilterRuleList Rules { get; set; }
 
@@ -50,7 +53,7 @@ namespace Yumiko.LinqToHtml.XCrawler
         }
         private uint _tier;
 
-        public static XCrawlerConfiguration Default => new XCrawlerConfiguration(encoding:Encoding.UTF8)
+        public static XCrawlerConfiguration Default(string site) => new XCrawlerConfiguration(site,encoding:Encoding.UTF8)
         {
             [HttpRequestHeader.UserAgent] = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36",
             [HttpRequestHeader.ContentType] = "application/x-www-form-urlencoded;charset=utf-8"

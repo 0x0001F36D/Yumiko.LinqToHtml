@@ -125,7 +125,7 @@
         }
         */
 
-        public XCrawler():this(XCrawlerConfiguration.Default)
+        public XCrawler(string site):this(XCrawlerConfiguration.Default(site))
         {
 
         }
@@ -138,21 +138,36 @@
 
         private int simulateHumanPaging(uint min, uint max)
             => new Random(Guid.NewGuid().GetHashCode()).Next((int)min, (int)max);
-
-        public IEnumerable<XSiteTier> Crawling(string url, uint delayMin = 300, uint delayMax = 3000)
+        
+        private bool _inited;
+        public XCrawler Initialize()
         {
-            var html = this.GetAsync(url).Result;
-            var parser = XParser.Load(html);
-            uint tier = 0;
-            yield return new XSiteTier(html, tier++);
-
-            var link = parser.Query(Scope.A).WhenAttributeKeyIs("href");
-
-            for (; tier < _config.Tier; tier++)
+            this.Tiers = new List<XSiteTier> { new XSiteTier(this.Config.Site, this.GetAsync(this._config.Site).Result,0) };
+            this._inited = true;
+            return this;
+        }
+        public List<XSiteTier> Tiers { get; private set; }
+        public XCrawler Topology(Func<XSiteTier,XSiteTier> reporter)
+        {
+            if (!this._inited) return this;
+            for (uint tier = 1; tier <= this.Config.Tier; tier++)
             {
-
+                /*
+                var tmp = new HashSet<XSiteTier>(this.Tiers.SelectMany(site => from attr in site.AsParser().Query(Scope.A).SelectAttributeWhenAttributeKeyIs("href")
+                                                                 let link = attr.Value
+                                                                 let t = Task
+                                                                    .Delay(simulateHumanPaging(300,3000))
+                                                                    .ContinueWith(x=>this.GetAsync(link).Result)
+                                                                 select new XSiteTier(link, t.Result, _tier++)));
+                */
+                this.Tiers.AddRange(new HashSet<XSiteTier>(this.Tiers.SelectMany(site => from attr in site.AsParser().Query(Scope.A).SelectAttributeWhenAttributeKeyIs("href")
+                                                                                         let link = attr.Value
+                                                                                         let t = Task
+                                                                                            .Delay(simulateHumanPaging(200, 800))
+                                                                                            .ContinueWith(x => this.GetAsync(link).Result)
+                                                                                         select reporter(new XSiteTier(link, t.Result, tier)))));
             }
-
+            return this;
 
         }
 

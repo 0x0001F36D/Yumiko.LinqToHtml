@@ -9,6 +9,7 @@
     using System.Linq.Expressions;
     using System.Linq;
     using Yumiko.LinqToHtml.Tags.Infrastructure;
+    using XCrawler;
     class Program
     {
         static void Main(string[] args)
@@ -17,6 +18,14 @@
 
             Console.BufferHeight = short.MaxValue-1;
             var urls = new[] { "https://msdn.microsoft.com/zh-tw/library/system.text.regularexpressions.regex(v=vs.110).aspx" };
+
+            XCrawler crawler = new XCrawler(urls[0]);
+            crawler.Initialize();
+            crawler.Topology((site) => { Console.WriteLine(site.ToString());return site; });
+
+
+
+            /*
             var header = new WebHeaderCollection();
             header.Add(HttpRequestHeader.UserAgent, "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36");
             var html = new WebClient
@@ -38,9 +47,9 @@
                 .WhenAttributeKeyIs("href")
                 .SelectMany(x=>x
                     .Attributes
-                    .Where(v=>v
-                        .Value
-                        .Contains("microsoft")));
+                  //  .Select(v=>v.Value)
+                    .Where(v=>v.Value.Contains("microsoft"))
+                    );
 
             foreach (var item in query)
             {
@@ -51,7 +60,7 @@
             
             sw.Stop();
 
-            Console.WriteLine(sw.Elapsed);
+            Console.WriteLine(sw.Elapsed);*/
             Console.ReadKey();
         }
     }
