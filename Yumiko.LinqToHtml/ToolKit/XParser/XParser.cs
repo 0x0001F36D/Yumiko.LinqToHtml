@@ -1,11 +1,11 @@
 ﻿
-namespace Yumiko.LinqToHtml.XParser
+namespace Yumiko.LinqToHtml.ToolKit
 {
     using System.Collections.Generic;
     using System.Linq;
     using Interfaces;
     using Tags;
-    using Scope;
+    using Scopes;
     using Tags.Infrastructure;
     using System;
 
@@ -33,6 +33,7 @@ namespace Yumiko.LinqToHtml.XParser
             this.QueryResult = scopes.Aggregate(this.QueryResult, (accumulate, aggregate) => aggregate.Generate(accumulate));
             return this;
         }
+        /*
         public IEnumerable<ROut> ForEach<RIn,ROut>(Func<RIn,ROut> function) where RIn : XParser,IFragment,IEnumerable<TagAttribute>
         {
             var t = typeof(RIn);
@@ -49,7 +50,7 @@ namespace Yumiko.LinqToHtml.XParser
 
             }
             return default(IEnumerable<ROut>);
-        }
+        }*/
 
         public IEnumerable<IFragment> WhenContentHas(params string[] keyword)
         {

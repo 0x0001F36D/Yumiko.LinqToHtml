@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Yumiko.LinqToHtml.XCrawler
+namespace Yumiko.LinqToHtml.ToolKit
 {
     public class XSiteTier
     {
@@ -17,7 +17,7 @@ namespace Yumiko.LinqToHtml.XCrawler
 
         public string Site { get; private set; }
         public string Html { get; private set; }
-        public uint Tier { get; private set; }
+        public uint   Tier { get; private set; }
 
         public override int GetHashCode()
             => (this.Site.Sum(x => x) / this.Site.Length +
@@ -27,9 +27,7 @@ namespace Yumiko.LinqToHtml.XCrawler
         public override bool Equals(object obj)
         {
             var o = obj as XSiteTier;
-            if (o != null)
-                return o.GetHashCode() == this.GetHashCode();
-            return base.Equals(obj);
+            return (o != null)? o.GetHashCode() == this.GetHashCode(): base.Equals(obj);
         }
 
         public override string ToString()

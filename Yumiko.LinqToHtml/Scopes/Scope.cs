@@ -1,5 +1,5 @@
 ﻿
-namespace Yumiko.LinqToHtml.Scope
+namespace Yumiko.LinqToHtml.Scopes
 {
     using System.Linq;
     using System.Collections.Generic;

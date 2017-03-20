@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Yumiko.LinqToHtml.Interfaces;
 
-namespace Yumiko.LinqToHtml.XCrawler
+namespace Yumiko.LinqToHtml.ToolKit
 {
     [Flags]
     public enum FilterBy
