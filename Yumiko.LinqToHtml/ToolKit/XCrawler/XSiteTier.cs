@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Yumiko.LinqToHtml.ToolKit
 {
+    using System;
+    using System.Linq;
+
     public class XSiteTier
     {
         public XSiteTier(string site, string html, uint tier)
