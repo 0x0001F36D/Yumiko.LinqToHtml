@@ -18,13 +18,13 @@ namespace Yumiko.LinqToHtml.ToolKit
         public uint Tier { get; private set; }
 
         public override int GetHashCode()
-            => (this.Site.Sum(x => x) / this.Site.Length +
-                this.Html.Sum(x => x) / this.Html.Length);
+            => (this.Site.Sum(x => x)*this.Html.Length +
+                this.Html.Sum(x => x) / this.Site.Length);
 
         public override bool Equals(object obj)
         {
             var o = obj as XCrawlerObject;
-            return (o != null) ? o.GetHashCode() == this.GetHashCode() : base.Equals(obj);
+            return  (o.Site == this.Site) | ((o != null) ? o.GetHashCode() == this.GetHashCode() : base.Equals(obj));
         }
 
         public override string ToString()

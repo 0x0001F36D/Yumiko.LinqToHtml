@@ -9,5 +9,7 @@
         public bool IsMatch(IFragment fragment)
             => this.All(x => !x.IsMatch(fragment)) == true;
 
+        public readonly static XCrawlerFilterRuleList Default
+            = new XCrawlerFilterRuleList { XCrawlerFilterRule.None };
     }
 }

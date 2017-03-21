@@ -41,7 +41,18 @@
 
         public XCrawlerStatusEventHandler StatusReporter { get;  set; }
 
-        public XCrawlerFilterRuleList Rules { get; set; }
+        public XCrawlerFilterRuleList Rules
+        {
+            get
+            {
+                return this._rules;
+            }
+            set
+            {
+                this._rules = value ?? XCrawlerFilterRuleList.Default;
+            }
+        }
+        private XCrawlerFilterRuleList _rules;
 
         public bool UseSiteSearch { get; set; }
 

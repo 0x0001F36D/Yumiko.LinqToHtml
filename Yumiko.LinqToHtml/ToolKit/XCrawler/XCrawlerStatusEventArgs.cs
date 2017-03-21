@@ -2,8 +2,7 @@
 namespace Yumiko.LinqToHtml.ToolKit
 {
     using System;
-
-    [Flags]
+    
     public enum CrawlerStatus
     {
         Initializing = 1,
@@ -11,6 +10,8 @@ namespace Yumiko.LinqToHtml.ToolKit
         Crawling = 4,
         TargetSwitching = 8,
         Resovling = 0x10,
+        DataExisted = 0x20,
+        ReturnData = 0x40,
     }
 
     public delegate void XCrawlerStatusEventHandler(object sender, XCrawlerStatusEventArgs e);

@@ -1,5 +1,4 @@
 ﻿
-
 namespace Yumiko.LinqToHtml.Sample
 {
     using System;
@@ -28,22 +27,56 @@ namespace Yumiko.LinqToHtml.Sample
             var conf = XCrawlerConfiguration.Default(urls[0]);
             conf.Rules = new XCrawlerFilterRuleList
             {
+                new XCrawlerFilterRule(FilterBy.AttributeKey | FilterBy.AttributeValue | FilterBy.Content , FilterMode.Capture , string.Empty)
+                /*
                 new XCrawlerFilterRule(FilterBy.AttributeValue , FilterMode.Bypass , "amp"),
                 new XCrawlerFilterRule(FilterBy.AttributeValue , FilterMode.Capture , "microsoft"),
                 new XCrawlerFilterRule(FilterBy.AttributeValue , FilterMode.Capture , "expression"),
-                new XCrawlerFilterRule(FilterBy.AttributeValue , FilterMode.Capture , "regex"),
+                new XCrawlerFilterRule(FilterBy.AttributeValue , FilterMode.Capture , "regex"),*/
             };
             conf.CallbackReporter = (sender, e) => Console.WriteLine($"[{e.Site}]");
             conf.StatusReporter = (sender, e) =>
             {
-                Console.BackgroundColor = ConsoleColor.DarkRed;
-                Console.WriteLine($"<{e.Status}>");
+                switch (e.Status)
+                {
+                    case CrawlerStatus.Initializing:
+                        Console.BackgroundColor = ConsoleColor.DarkMagenta;
+                        Console.WriteLine($"<{e.Status}>");
+                        break;
+                    case CrawlerStatus.Idle:
+                        Console.BackgroundColor = ConsoleColor.DarkGreen;
+                        Console.WriteLine($"<{e.Status}>");
+                        break;
+                    case CrawlerStatus.Crawling:
+                        Console.BackgroundColor = ConsoleColor.DarkRed;
+                        Console.Write($"<{e.Status}>");
+                        break;
+                    case CrawlerStatus.TargetSwitching:
+                        Console.BackgroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine($"<{e.Status}>");
+                        break;
+                    case CrawlerStatus.Resovling:
+                        Console.BackgroundColor = ConsoleColor.DarkBlue;
+                        Console.WriteLine($"<{e.Status}>");
+                        break;
+                    case CrawlerStatus.DataExisted:
+                        Console.BackgroundColor = ConsoleColor.DarkGray;
+                        Console.WriteLine($"<{e.Status}>");
+                        break;
+                    case CrawlerStatus.ReturnData:
+                        Console.BackgroundColor = ConsoleColor.DarkGray;
+                        Console.Write($"<{e.Status}>");
+                        break;
+                }
+
                 Console.BackgroundColor = ConsoleColor.Black;
             };
 
             var crawler = new XCrawler(conf);
-            crawler.Crawling();
-            
+            Console.ReadKey();
+#pragma warning disable 4014
+            crawler.CrawlingAsync(CancellationToken.None);
+#pragma warning restore 4014
             /*
             
             var header = new WebHeaderCollection();

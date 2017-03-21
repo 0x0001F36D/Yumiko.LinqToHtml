@@ -21,6 +21,8 @@ namespace Yumiko.LinqToHtml.ToolKit.Setting.Rule
 
     public class XCrawlerFilterRule
     {
+        public readonly static XCrawlerFilterRule None = new XCrawlerFilterRule(FilterBy.AttributeKey | FilterBy.AttributeValue | FilterBy.Content, FilterMode.Capture, string.Empty);
+
         public XCrawlerFilterRule(FilterBy filterBy, FilterMode filterMode, string match)
         {
             this.FilterBy = filterBy;

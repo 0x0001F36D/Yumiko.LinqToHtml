@@ -8,9 +8,8 @@
     using System.Threading.Tasks;
     using System.Threading;
 
-    public class XCrawler
+    public class XCrawler : IDisposable
     {
-
         public XCrawler(XCrawlerConfiguration config)
         {
             this.Config = config;
@@ -35,21 +34,25 @@
         public XCrawlerConfiguration Config { get; set; }
         public List<XCrawlerObject> Tiers { get; private set; }
 
-        private IEnumerable<XCrawlerObject> Iterator(XCrawlerObject site)
+        private IEnumerable<XCrawlerObject> Enumerator(XCrawlerObject site)
         {
-
             this.OnStatusChanged?.Invoke(this, new XCrawlerStatusEventArgs(CrawlerStatus.Resovling));
             var list = new HashSet<string>(site.Resolve(this.Config.Rules));
             foreach (var x in list)
             {
                 this.OnStatusChanged?.Invoke(this, new XCrawlerStatusEventArgs(CrawlerStatus.Crawling));
-                this.OnCallbackInvoked?.Invoke(this, new XCrawlerCallbackEventArgs(x));
                 var t = new XCrawlerObject(x, new XCrawlerClient(x)
                 {
                     Config = this.Config
                 }.GetAsync().Result, site.Tier + 1);
                 if (!this.Tiers.Contains(t))
+                {
                     yield return t;
+                    this.OnStatusChanged?.Invoke(this, new XCrawlerStatusEventArgs(CrawlerStatus.ReturnData));
+                    this.OnCallbackInvoked?.Invoke(this, new XCrawlerCallbackEventArgs(x));
+                }
+                else
+                    this.OnStatusChanged?.Invoke(this, new XCrawlerStatusEventArgs(CrawlerStatus.DataExisted));
             }
         }
 
@@ -62,7 +65,7 @@
             }
             private set
             {
-                if(value == null)
+                if (value == null)
                     this.OnStatusChanged?.Invoke(this, new XCrawlerStatusEventArgs(CrawlerStatus.Idle));
                 this._isAsync = value;
             }
@@ -74,14 +77,14 @@
                 this.IsAsync = false;
             else
                 throw new XCrawlerException($"Crawler is running in {(this.IsAsync.Value ? "As" : "S")}ynchonous mode now");
-            
+
             var tmp = this.Tiers as IEnumerable<XCrawlerObject>;
         Flag:
 
             foreach (var tier in tmp)
             {
                 this.OnStatusChanged(this, new XCrawlerStatusEventArgs(CrawlerStatus.TargetSwitching));
-                foreach (var item in tmp = this.Iterator(tier))
+                foreach (var item in tmp = this.Enumerator(tier))
                 {
                     if (!this.Tiers.Contains(item))
                         this.Tiers.Add(item);
@@ -103,7 +106,7 @@
                     this.IsAsync = true;
                 else
                     throw new XCrawlerException($"Crawler is running in {(this.IsAsync.Value ? "As" : "S") }ynchonous mode now");
-                
+
 
                 var t = new Task(() =>
                 {
@@ -113,7 +116,7 @@
                     foreach (var tier in tmp)
                     {
                         this.OnStatusChanged(this, new XCrawlerStatusEventArgs(CrawlerStatus.TargetSwitching));
-                        foreach (var item in tmp = this.Iterator(tier))
+                        foreach (var item in tmp = this.Enumerator(tier))
                         {
                             if (!this.Tiers.Contains(item))
                                 this.Tiers.Add(item);
@@ -121,8 +124,8 @@
                         if (tier.Tier < this.Config.MaxTier)
                             goto Flag;
                     }
-                },token);
-
+                }, token);
+                t.Start();
                 await t;
             }
             catch (AggregateException ae)
@@ -134,5 +137,23 @@
                 this.IsAsync = null;
             }
         }
+
+        #region IDisposable Support
+        private bool disposedValue = false;
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!disposedValue)
+            {
+                if (disposing)
+                    this.Tiers = null;                
+                disposedValue = true;
+            }
+        }
+
+        public void Dispose()
+            => this.Dispose(true);
+
+        #endregion
     }
 }
