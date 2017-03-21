@@ -3,11 +3,9 @@ namespace Yumiko.LinqToHtml.Scopes
 {
     using System.Linq;
     using System.Collections.Generic;
-    using Yumiko.LinqToHtml.Interfaces;
-    using Yumiko.LinqToHtml.Tags.Item;
+    using Interfaces;
+    using Tags.Item;
     using System;
-    using Yumiko.LinqToHtml.Tags.Infrastructure;
-    using Tags;
 
     public sealed class Scope
     {

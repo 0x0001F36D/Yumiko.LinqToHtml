@@ -6,6 +6,7 @@
     using Setting;
     using Architecture;
     using System.Threading.Tasks;
+    using System.Threading;
 
     public class XCrawler
     {
@@ -13,7 +14,7 @@
         public XCrawler(XCrawlerConfiguration config)
         {
             this.Config = config;
-            
+
             if (config.StatusReporter != null)
                 this.OnStatusChanged += config.StatusReporter;
             this.OnStatusChanged?.Invoke(this, new XCrawlerStatusEventArgs(CrawlerStatus.Initializing));
@@ -26,7 +27,7 @@
                 new XCrawlerObject(config.Site, new XCrawlerClient(config).GetAsync().Result, 0)
             });
 
-            this.OnStatusChanged?.Invoke(this, new XCrawlerStatusEventArgs(CrawlerStatus.Idle));
+            this.IsAsync = null;
         }
         public event XCrawlerCallbackEventHandler OnCallbackInvoked;
         public event XCrawlerStatusEventHandler OnStatusChanged;
@@ -34,8 +35,10 @@
         public XCrawlerConfiguration Config { get; set; }
         public List<XCrawlerObject> Tiers { get; private set; }
 
-        private IEnumerable<XCrawlerObject> Iterator(XCrawlerObject site)
+        private IEnumerable<XCrawlerObject> Iterator(XCrawlerObject site, CrawlerStatus runInAsync)
         {
+
+            this.OnStatusChanged?.Invoke(this, new XCrawlerStatusEventArgs(runInAsync | CrawlerStatus.Resovling | CrawlerStatus.Crawling));
             var list = new HashSet<string>(site.Resolve(this.Config.Rules));
             foreach (var x in list)
             {
@@ -47,43 +50,89 @@
             }
         }
 
-        
-        private bool? isAsync = null;
-
-        public XCrawler Crawling()
+        private bool? _isAsync;
+        public bool? IsAsync
         {
-            if (this.isAsync == null)
-                this.isAsync = false;
-            else
-                throw new XCrawlerException($"Crawler is running in {(this.isAsync.Value ? "As" : "S")}ynchonous mode now");
+            get
+            {
+                return _isAsync;
+            }
+            private set
+            {
+                if(value == null)
+                {
+                    this.OnStatusChanged?.Invoke(this, new XCrawlerStatusEventArgs(CrawlerStatus.Idle));
+                }
+                this._isAsync = value;
+            }
+        }
 
+        public void Crawling()
+        {
+            if (this.IsAsync == null)
+                this.IsAsync = false;
+            else
+                throw new XCrawlerException($"Crawler is running in {(this.IsAsync.Value ? "As" : "S")}ynchonous mode now");
+
+            var status = (this.IsAsync.Value ? CrawlerStatus.Asynchronous : CrawlerStatus.Synchronous);
             var tmp = this.Tiers as IEnumerable<XCrawlerObject>;
-         Flag:
+        Flag:
 
             foreach (var tier in tmp)
             {
-                this.OnStatusChanged(this, new XCrawlerStatusEventArgs((
-                    this.isAsync.Value ? CrawlerStatus.Asynchronous : CrawlerStatus.Synchronous) |
+                this.OnStatusChanged(this, new XCrawlerStatusEventArgs(
+                    status |
                     CrawlerStatus.TargetSwitching |
                     CrawlerStatus.Crawling));
 
-                this.Tiers.AddRange(tmp = this.Iterator(tier));
+                this.Tiers.AddRange(tmp = this.Iterator(tier, status));
                 if (tier.Tier < this.Config.MaxTier)
                     goto Flag;
             }
 
-            isAsync = null;
-            return this;
+            this.IsAsync = null;
         }
 
-        public Task<XCrawler> CrawlingAsync()
+        public async Task CrawlingAsync(CancellationToken token)
         {
-            if (this.isAsync == null)
-                this.isAsync = true;
-            else
-                throw new XCrawlerException($"Crawler is running in {(this.isAsync.Value ? "As" : "S") }ynchonous mode now");
+            try
+            {
 
-            return null;
+                if (this.IsAsync == null)
+                    this.IsAsync = true;
+                else
+                    throw new XCrawlerException($"Crawler is running in {(this.IsAsync.Value ? "As" : "S") }ynchonous mode now");
+
+                var status = (this.IsAsync.Value ? CrawlerStatus.Asynchronous : CrawlerStatus.Synchronous);
+
+                var t = new Task(() =>
+                {
+                    var tmp = this.Tiers as IEnumerable<XCrawlerObject>;
+                Flag:
+
+                    foreach (var tier in tmp)
+                    {
+                        this.OnStatusChanged(this, new XCrawlerStatusEventArgs(
+                            status |
+                            CrawlerStatus.TargetSwitching |
+                            CrawlerStatus.Crawling));
+
+                        this.Tiers.AddRange(tmp = this.Iterator(tier, status));
+                        if (tier.Tier < this.Config.MaxTier)
+                            goto Flag;
+                    }
+                },token);
+
+                await t;
+            }
+            catch (AggregateException ae)
+            {
+                throw new XCrawlerException("Crawler Excepted", ae.InnerExceptions.First());
+            }
+            finally
+            {
+                this.IsAsync = null;
+            }
         }
     }
 }

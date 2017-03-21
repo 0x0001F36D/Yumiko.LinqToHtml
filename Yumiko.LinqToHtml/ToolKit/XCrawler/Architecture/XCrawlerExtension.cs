@@ -2,9 +2,7 @@
 {
     using System.Linq;
     using System.Collections.Generic;
-    using System;
     using System.Text.RegularExpressions;
-    using Setting;
     using Setting.Rule;
 
     internal static class XCrawlerExtension

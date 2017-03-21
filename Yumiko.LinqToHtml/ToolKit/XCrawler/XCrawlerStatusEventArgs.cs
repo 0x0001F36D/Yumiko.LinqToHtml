@@ -13,7 +13,7 @@ namespace Yumiko.LinqToHtml.ToolKit
 
         Resovling = 0xEF,
         Crawling = 0xFF,
-
+        
         Asynchronous = 0xAC,
         Synchronous = 0xA0,
     }

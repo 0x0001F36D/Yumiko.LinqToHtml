@@ -1,11 +1,8 @@
 ﻿namespace Yumiko.LinqToHtml.ToolKit.Setting
 {
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
     using System.Text;
     using System.Net;
-    using Tags.Infrastructure;
     using Rule;
 
     public class XCrawlerConfiguration : WebHeaderCollection

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-
+﻿
 namespace Yumiko.LinqToHtml.Interfaces
 {
+    using System.Text.RegularExpressions;
+
     interface ISingleTag : ITag
     {
         Regex LineTagRule { get; }

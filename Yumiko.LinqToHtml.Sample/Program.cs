@@ -14,6 +14,7 @@ namespace Yumiko.LinqToHtml.Sample
     using System.Threading.Tasks;
     using ToolKit.Setting;
     using ToolKit.Setting.Rule;
+    using System.Threading;
 
     class Program
     {
@@ -33,8 +34,9 @@ namespace Yumiko.LinqToHtml.Sample
                 new XCrawlerFilterRule(FilterBy.AttributeValue , FilterMode.Capture , "regex"),
             };
             conf.CallbackReporter = (sender, e) => Console.WriteLine($"[{e.Site}]");
-  
-            var craw = new XCrawler(conf).Crawling();
+            conf.StatusReporter = (sender, e) => Console.WriteLine($"<{e.Status}>");
+            var crawler = new XCrawler(conf);
+            crawler.CrawlingAsync(CancellationToken.None).Wait();
             
             /*
             
