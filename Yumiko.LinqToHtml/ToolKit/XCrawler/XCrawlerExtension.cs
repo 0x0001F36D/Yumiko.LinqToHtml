@@ -13,9 +13,16 @@
                .Query(Scopes.Scope.A)
                 .QueryResult
                 .Where(rules.IsMatch)
-                .SelectMany(x => x["href"].Select(v => v.Value));
-            // .SelectAttributeWhenAttributeKeyIs("href")
-             //  .Where(x => reg.IsMatch(x.Value))
-              // .Select(x => x.Value);
+                .SelectMany(x => 
+                    x["href"]
+                    .Where(v=>reg.IsMatch(v.Value))
+                    .Select(v => v.Value));
+
+        /*
+        internal static TIntercept Intercept<TIntercept>(this TIntercept interceptor)
+        {
+            Console.WriteLine(interceptor.ToString());
+            return interceptor;
+        }*/
     }
 }

@@ -7,6 +7,9 @@
     public class XCrawlerFilterRuleList : List<XCrawlerFilterRule>
     {
         public bool IsMatch(IFragment fragment)
-            => this.Any(x => x.IsMatch(fragment));
+        {
+           return this.All(x => !x.IsMatch(fragment)) == true;
+            
+        }
     }
 }

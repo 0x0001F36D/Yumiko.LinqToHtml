@@ -25,12 +25,15 @@ namespace Yumiko.LinqToHtml.Sample
             var conf = XCrawlerConfiguration.Default(urls[0]);
             conf.Rules = new XCrawlerFilterRuleList
             {
-                new XCrawlerFilterRule(FilterBy.AttributeValue , FilterMode.Capture , "msdn")
+                new XCrawlerFilterRule(FilterBy.AttributeValue , FilterMode.Capture , "microsoft"),
+                new XCrawlerFilterRule(FilterBy.AttributeValue , FilterMode.Capture , "expression"),
+                new XCrawlerFilterRule(FilterBy.AttributeValue , FilterMode.Capture , "regex"),
+                new XCrawlerFilterRule(FilterBy.AttributeValue , FilterMode.Bypass , "amp")
             };
             conf.Reporter = (sender, e) => Console.WriteLine(e);
   
-            var invoker = new XCrawlerInvoker(conf);
-            foreach (var item in invoker.Crawling().Tiers)
+            var craw = new XCrawlerInvoker(conf).Crawling();
+            foreach (var item in craw.Tiers)
             {
                 Console.WriteLine(item.ToString());
             } 

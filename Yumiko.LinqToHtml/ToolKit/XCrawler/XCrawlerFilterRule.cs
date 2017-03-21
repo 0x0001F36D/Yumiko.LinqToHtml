@@ -44,9 +44,9 @@ namespace Yumiko.LinqToHtml.ToolKit
                     return !flag;
                 //擷取
                 case FilterMode.Capture:
-                default:
                     return flag;
             }
+            return false;
         }
 
         private bool attributeKey(IFragment fragment)
@@ -56,12 +56,12 @@ namespace Yumiko.LinqToHtml.ToolKit
             {
                 //跳過
                 case FilterMode.Bypass:
-                    return !flag.Any(x => x.Key.Contains(this.Match));
+                    return flag.Any(x => x.Key.Contains(this.Match)) == true;
                 //擷取
                 case FilterMode.Capture:
-                default:
-                    return flag.Any(x => x.Key.Contains(this.Match));
+                    return flag.Any(x => x.Key.Contains(this.Match)) == false;
             }
+            return false;
         }
 
         private bool attributeValue(IFragment fragment)
@@ -71,12 +71,12 @@ namespace Yumiko.LinqToHtml.ToolKit
             {
                 //跳過
                 case FilterMode.Bypass:
-                    return !flag.Any(x => x.Value.Contains(this.Match));
+                    return flag.Any(x => x.Value.Contains(this.Match)) == true;
                 //擷取
                 case FilterMode.Capture:
-                default:
-                    return flag.Any(x => x.Value.Contains(this.Match));
+                    return flag.Any(x => x.Value.Contains(this.Match)) == false;
             }
+            return false;
         }
 
         public bool IsMatch(IFragment fragment)

@@ -38,7 +38,10 @@ namespace Yumiko.LinqToHtml.ToolKit
             {
                 this.OnReport($"Downloading : [{x}]");
              
-                yield return new XSiteTier(x, new XCrawlerClient(x) { Config = this.Config }.GetAsync().Result, site.Tier + 1);
+                yield return new XSiteTier(x, new XCrawlerClient(x)
+                {
+                    Config = this.Config
+                }.GetAsync().Result, site.Tier + 1);
             }
         }
         public XCrawlerInvoker Crawling()
