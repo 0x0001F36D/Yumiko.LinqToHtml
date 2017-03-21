@@ -1,4 +1,4 @@
-﻿namespace Yumiko.LinqToHtml.ToolKit
+﻿namespace Yumiko.LinqToHtml.ToolKit.Setting
 {
     using System;
     using System.Collections.Generic;
@@ -6,14 +6,16 @@
     using System.Text;
     using System.Net;
     using Tags.Infrastructure;
+    using Rule;
 
     public class XCrawlerConfiguration : WebHeaderCollection
     {
-        public XCrawlerConfiguration(string site, uint maxTier = 1, EventHandler<string> reporter = null, Encoding encoding = null, bool useSiteSearch = false, XCrawlerFilterRuleList rules = null, bool useDefaultCredentials = false, IWebProxy proxy = null, ICredentials credentials = null)
+        public XCrawlerConfiguration(string site, uint maxTier = 1, XCrawlerStatusEventHandler statusReporter  = null, XCrawlerCallbackEventHandler callbackReporter = null, Encoding encoding = null, bool useSiteSearch = false, XCrawlerFilterRuleList rules = null, bool useDefaultCredentials = false, IWebProxy proxy = null, ICredentials credentials = null)
         {
             this.Site = site;
             this.Encoding = encoding;
-            this.Reporter = reporter;
+            this.CallbackReporter = callbackReporter;
+            this.StatusReporter = statusReporter;
             this.Proxy = proxy;
             this.MaxTier = maxTier;
             this.Rules = rules;
@@ -38,7 +40,9 @@
         }
         private string _site;
 
-        public EventHandler<string> Reporter { get; set; }
+        public XCrawlerCallbackEventHandler CallbackReporter { get; set; }
+
+        public XCrawlerStatusEventHandler StatusReporter { get;  set; }
 
         public XCrawlerFilterRuleList Rules { get; set; }
 
@@ -66,6 +70,7 @@
 
             }
         }
+
         private uint _maxtier;
 
         public static XCrawlerConfiguration Default(string site) => new XCrawlerConfiguration(site, encoding: Encoding.UTF8)

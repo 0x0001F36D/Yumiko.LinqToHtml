@@ -4,9 +4,9 @@ namespace Yumiko.LinqToHtml.ToolKit
     using System;
     using System.Linq;
 
-    public class XSiteTier
+    public class XCrawlerObject
     {
-        public XSiteTier(string site, string html, uint tier)
+        public XCrawlerObject(string site, string html, uint tier)
         {
             this.Site = site;
             this.Html = html;
@@ -24,7 +24,7 @@ namespace Yumiko.LinqToHtml.ToolKit
 
         public override bool Equals(object obj)
         {
-            var o = obj as XSiteTier;
+            var o = obj as XCrawlerObject;
             return (o != null) ? o.GetHashCode() == this.GetHashCode() : base.Equals(obj);
         }
 

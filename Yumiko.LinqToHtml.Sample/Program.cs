@@ -12,31 +12,29 @@ namespace Yumiko.LinqToHtml.Sample
     using System.Linq;
     using Yumiko.LinqToHtml.Tags.Infrastructure;
     using System.Threading.Tasks;
+    using ToolKit.Setting;
+    using ToolKit.Setting.Rule;
 
     class Program
     {
         static void Main(string[] args)
         {
             var sw = new System.Diagnostics.Stopwatch();
-
+            
             Console.BufferHeight = short.MaxValue-1;
             var urls = new[] { "https://msdn.microsoft.com/zh-tw/library/system.text.regularexpressions.regex(v=vs.110).aspx" };
 
             var conf = XCrawlerConfiguration.Default(urls[0]);
             conf.Rules = new XCrawlerFilterRuleList
             {
+                new XCrawlerFilterRule(FilterBy.AttributeValue , FilterMode.Bypass , "amp"),
                 new XCrawlerFilterRule(FilterBy.AttributeValue , FilterMode.Capture , "microsoft"),
                 new XCrawlerFilterRule(FilterBy.AttributeValue , FilterMode.Capture , "expression"),
                 new XCrawlerFilterRule(FilterBy.AttributeValue , FilterMode.Capture , "regex"),
-                new XCrawlerFilterRule(FilterBy.AttributeValue , FilterMode.Bypass , "amp")
             };
-            conf.Reporter = (sender, e) => Console.WriteLine(e);
+            conf.CallbackReporter = (sender, e) => Console.WriteLine($"[{e.Site}]");
   
-            var craw = new XCrawlerInvoker(conf).Crawling();
-            foreach (var item in craw.Tiers)
-            {
-                Console.WriteLine(item.ToString());
-            } 
+            var craw = new XCrawler(conf).Crawling();
             
             /*
             

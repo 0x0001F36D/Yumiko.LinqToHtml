@@ -1,4 +1,4 @@
-﻿namespace Yumiko.LinqToHtml.ToolKit
+﻿namespace Yumiko.LinqToHtml.ToolKit.Architecture
 {
     using System;
     using System.Collections.Generic;
@@ -9,9 +9,9 @@
     using System.Collections.Specialized;
     using System.Net.NetworkInformation;
     using System.Web;
-    using Scopes;
+    using Setting;
 
-    public class XCrawlerClient
+    internal class XCrawlerClient
     {
         private class cwClient : WebClient
         {
@@ -71,8 +71,6 @@
             this.XCrawlerClinet = new cwClient();
             this.Config = config;
         }
-
-
 
         private string convertNVC2String(NameValueCollection nvc)
             => nvc == null ? string.Empty : string.Join("&", nvc.Cast<string>().Select(p => $"{p}={HttpUtility.UrlEncode(nvc[p])}"));

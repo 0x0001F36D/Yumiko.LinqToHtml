@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Yumiko.LinqToHtml.Interfaces;
-
-namespace Yumiko.LinqToHtml.ToolKit
+﻿
+namespace Yumiko.LinqToHtml.ToolKit.Setting.Rule
 {
+    using System;
+    using System.Linq;
+    using Interfaces;
+
     [Flags]
     public enum FilterBy
     {
@@ -23,7 +21,7 @@ namespace Yumiko.LinqToHtml.ToolKit
 
     public class XCrawlerFilterRule
     {
-        public XCrawlerFilterRule(FilterBy filterBy , FilterMode filterMode , string match)
+        public XCrawlerFilterRule(FilterBy filterBy, FilterMode filterMode, string match)
         {
             this.FilterBy = filterBy;
             this.FilterMode = filterMode;
@@ -39,10 +37,10 @@ namespace Yumiko.LinqToHtml.ToolKit
             var flag = fragment.Content.Contains(this.Match);
             switch (this.FilterMode)
             {
-                //跳過
+                //skip
                 case FilterMode.Bypass:
                     return !flag;
-                //擷取
+                //take
                 case FilterMode.Capture:
                     return flag;
             }
@@ -54,10 +52,10 @@ namespace Yumiko.LinqToHtml.ToolKit
             var flag = fragment.Attributes;
             switch (this.FilterMode)
             {
-                //跳過
+
                 case FilterMode.Bypass:
                     return flag.Any(x => x.Key.Contains(this.Match)) == true;
-                //擷取
+
                 case FilterMode.Capture:
                     return flag.Any(x => x.Key.Contains(this.Match)) == false;
             }
@@ -69,10 +67,10 @@ namespace Yumiko.LinqToHtml.ToolKit
             var flag = fragment.Attributes;
             switch (this.FilterMode)
             {
-                //跳過
+
                 case FilterMode.Bypass:
                     return flag.Any(x => x.Value.Contains(this.Match)) == true;
-                //擷取
+                
                 case FilterMode.Capture:
                     return flag.Any(x => x.Value.Contains(this.Match)) == false;
             }
@@ -81,12 +79,12 @@ namespace Yumiko.LinqToHtml.ToolKit
 
         public bool IsMatch(IFragment fragment)
         {
-            
+
             switch (FilterBy)
             {
                 case FilterBy.Content://1
                     return content(fragment);
-                    
+
                 case FilterBy.AttributeKey://2
                     return attributeKey(fragment);
 
@@ -99,7 +97,7 @@ namespace Yumiko.LinqToHtml.ToolKit
                 case FilterBy.Content | FilterBy.AttributeValue://5
                     return content(fragment) & attributeValue(fragment);
 
-                case FilterBy.Content | FilterBy.AttributeKey ://3
+                case FilterBy.Content | FilterBy.AttributeKey://3
                     return content(fragment) & attributeKey(fragment);
 
                 case FilterBy.Content | FilterBy.AttributeKey | FilterBy.AttributeValue://7

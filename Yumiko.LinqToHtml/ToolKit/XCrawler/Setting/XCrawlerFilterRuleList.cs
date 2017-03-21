@@ -1,4 +1,4 @@
-﻿namespace Yumiko.LinqToHtml.ToolKit
+﻿namespace Yumiko.LinqToHtml.ToolKit.Setting.Rule
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -9,7 +9,6 @@
         public bool IsMatch(IFragment fragment)
         {
            return this.All(x => !x.IsMatch(fragment)) == true;
-            
         }
     }
 }
