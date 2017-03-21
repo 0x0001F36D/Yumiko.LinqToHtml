@@ -34,9 +34,15 @@ namespace Yumiko.LinqToHtml.Sample
                 new XCrawlerFilterRule(FilterBy.AttributeValue , FilterMode.Capture , "regex"),
             };
             conf.CallbackReporter = (sender, e) => Console.WriteLine($"[{e.Site}]");
-            conf.StatusReporter = (sender, e) => Console.WriteLine($"<{e.Status}>");
+            conf.StatusReporter = (sender, e) =>
+            {
+                Console.BackgroundColor = ConsoleColor.DarkRed;
+                Console.WriteLine($"<{e.Status}>");
+                Console.BackgroundColor = ConsoleColor.Black;
+            };
+
             var crawler = new XCrawler(conf);
-            crawler.CrawlingAsync(CancellationToken.None).Wait();
+            crawler.Crawling();
             
             /*
             

@@ -19,8 +19,7 @@ namespace Yumiko.LinqToHtml.ToolKit
 
         public override int GetHashCode()
             => (this.Site.Sum(x => x) / this.Site.Length +
-                this.Html.Sum(x => x) / this.Html.Length) *
-                ((int)Math.Abs(this.Tier) + 1);
+                this.Html.Sum(x => x) / this.Html.Length);
 
         public override bool Equals(object obj)
         {
