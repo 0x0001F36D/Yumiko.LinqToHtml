@@ -65,7 +65,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Helper\Extension.cs" />
-    <Compile Include="Helper\Selector.cs" />
     <Compile Include="Interfaces\IFragment.cs" />
     <Compile Include="Interfaces\IPairTag.cs" />
     <Compile Include="Interfaces\ISingleTag.cs" />
