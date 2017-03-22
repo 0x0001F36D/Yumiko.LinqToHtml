@@ -1,4 +1,4 @@
-﻿namespace Yumiko.LinqToHtml.ToolKit
+﻿namespace Yumiko.LinqToHtml.ToolKit.Crawler
 {
     using System;
     using System.Collections.Generic;
@@ -7,6 +7,7 @@
     using Architecture;
     using System.Threading.Tasks;
     using System.Threading;
+    using Core;
 
     public class XCrawler : IDisposable
     {

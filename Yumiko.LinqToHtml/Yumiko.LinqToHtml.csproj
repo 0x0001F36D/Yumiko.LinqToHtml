@@ -37,8 +37,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows" />
     <Reference Include="WindowsBase" />
@@ -182,22 +184,23 @@
     <Compile Include="Tags\Item\Single\Track.cs" />
     <Compile Include="Tags\Item\Single\Wbr.cs" />
     <Compile Include="Tags\Item\Other\Root.cs" />
-    <Compile Include="ToolKit\XCrawler\Architecture\XCrawlerClient.cs" />
-    <Compile Include="ToolKit\XCrawler\Setting\XCrawlerConfiguration.cs" />
-    <Compile Include="ToolKit\XCrawler\Architecture\XCrawlerExtension.cs" />
-    <Compile Include="ToolKit\XCrawler\Setting\XCrawlerFilterRule.cs" />
-    <Compile Include="ToolKit\XCrawler\Setting\XCrawlerFilterRuleList.cs" />
-    <Compile Include="ToolKit\XCrawler\XCrawler.cs" />
-    <Compile Include="ToolKit\XCrawler\XCrawlerCallbackEventArgs.cs" />
-    <Compile Include="ToolKit\XCrawler\XCrawlerException.cs" />
-    <Compile Include="ToolKit\XCrawler\XCrawlerObject.cs" />
-    <Compile Include="ToolKit\XCrawler\XCrawlerStatusEventArgs.cs" />
-    <Compile Include="ToolKit\XParser\XParser.cs" />
+    <Compile Include="ToolKit\Crawler\Architecture\XCrawlerClient.cs" />
+    <Compile Include="ToolKit\Crawler\Setting\XCrawlerConfiguration.cs" />
+    <Compile Include="ToolKit\Crawler\Architecture\XCrawlerExtension.cs" />
+    <Compile Include="ToolKit\Crawler\Setting\XCrawlerFilterRule.cs" />
+    <Compile Include="ToolKit\Crawler\Setting\XCrawlerFilterRuleList.cs" />
+    <Compile Include="ToolKit\Crawler\XCrawler.cs" />
+    <Compile Include="ToolKit\Crawler\Core\XCrawlerCallbackEventArgs.cs" />
+    <Compile Include="ToolKit\Crawler\Core\XCrawlerException.cs" />
+    <Compile Include="ToolKit\Crawler\Core\XCrawlerObject.cs" />
+    <Compile Include="ToolKit\Crawler\Core\XCrawlerStatusEventArgs.cs" />
+    <Compile Include="ToolKit\Parser\XParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

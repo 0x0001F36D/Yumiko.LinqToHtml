@@ -9,11 +9,13 @@ namespace Yumiko.LinqToHtml.Sample
     using Yumiko.LinqToHtml.ToolKit;
     using System.Linq.Expressions;
     using System.Linq;
-    using Yumiko.LinqToHtml.Tags.Infrastructure;
+    using Tags.Infrastructure;
     using System.Threading.Tasks;
-    using ToolKit.Setting;
-    using ToolKit.Setting.Rule;
+    using ToolKit.Crawler.Setting;
+    using ToolKit.Crawler.Setting.Rule;
     using System.Threading;
+    using ToolKit.Crawler;
+    using ToolKit.Crawler.Core;
 
     class Program
     {
@@ -34,7 +36,7 @@ namespace Yumiko.LinqToHtml.Sample
                 new XCrawlerFilterRule(FilterBy.AttributeValue , FilterMode.Capture , "regex"),
             };
             */
-            conf.CallbackReporter = (sender, e) => Console.WriteLine($"[#{e.Object.Tier}]:[{e.Object.Site}]");
+            conf.CallbackReporter = (sender, e) => Console.WriteLine($"[#{e.Object.Tier}]:[{e.Object.Site}]\n\n");
             conf.StatusReporter = (sender, e) =>
             {
                 switch (e.Status)

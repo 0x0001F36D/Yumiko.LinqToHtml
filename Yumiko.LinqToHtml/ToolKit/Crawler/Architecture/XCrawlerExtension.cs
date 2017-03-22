@@ -1,9 +1,11 @@
-﻿namespace Yumiko.LinqToHtml.ToolKit.Architecture
+﻿namespace Yumiko.LinqToHtml.ToolKit.Crawler.Architecture
 {
     using System.Linq;
     using System.Collections.Generic;
     using System.Text.RegularExpressions;
     using Setting.Rule;
+    using Core;
+    using Parser;
 
     internal static class XCrawlerExtension
     {

@@ -1,5 +1,5 @@
 ﻿
-namespace Yumiko.LinqToHtml.ToolKit
+namespace Yumiko.LinqToHtml.ToolKit.Parser
 {
     using System.Collections.Generic;
     using System.Linq;

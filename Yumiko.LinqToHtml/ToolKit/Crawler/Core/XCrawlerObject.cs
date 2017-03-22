@@ -1,5 +1,5 @@
 ﻿
-namespace Yumiko.LinqToHtml.ToolKit
+namespace Yumiko.LinqToHtml.ToolKit.Crawler.Core
 {
     using System;
     using System.Linq;

@@ -1,9 +1,10 @@
-﻿namespace Yumiko.LinqToHtml.ToolKit.Setting
+﻿namespace Yumiko.LinqToHtml.ToolKit.Crawler.Setting
 {
     using System;
     using System.Text;
     using System.Net;
     using Rule;
+    using Core;
 
     public class XCrawlerConfiguration : WebHeaderCollection
     {

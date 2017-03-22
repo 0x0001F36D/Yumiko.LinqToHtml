@@ -1,5 +1,5 @@
 ﻿
-namespace Yumiko.LinqToHtml.ToolKit.Setting.Rule
+namespace Yumiko.LinqToHtml.ToolKit.Crawler.Setting.Rule
 {
     using System;
     using System.Linq;
