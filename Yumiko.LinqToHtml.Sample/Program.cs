@@ -6,16 +6,16 @@ namespace Yumiko.LinqToHtml.Sample
     using System.Net;
     using Yumiko.LinqToHtml.Scopes;
     using System.Collections.Generic;
-    using Yumiko.LinqToHtml.ToolKit;
+    using Yumiko.LinqToHtml.Toolkits;
     using System.Linq.Expressions;
     using System.Linq;
     using Tags.Infrastructure;
     using System.Threading.Tasks;
-    using ToolKit.Crawler.Setting;
-    using ToolKit.Crawler.Setting.Rule;
+    using Toolkits.Crawler.Setting;
+    using Toolkits.Crawler.Setting.Rule;
     using System.Threading;
-    using ToolKit.Crawler;
-    using ToolKit.Crawler.Core;
+    using Toolkits.Crawler;
+    using Toolkits.Crawler.Core;
 
     class Program
     {

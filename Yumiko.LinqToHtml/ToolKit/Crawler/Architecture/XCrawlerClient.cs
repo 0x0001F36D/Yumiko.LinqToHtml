@@ -1,4 +1,4 @@
-﻿namespace Yumiko.LinqToHtml.ToolKit.Crawler.Architecture
+﻿namespace Yumiko.LinqToHtml.Toolkits.Crawler.Architecture
 {
     using System;
     using System.Collections.Generic;

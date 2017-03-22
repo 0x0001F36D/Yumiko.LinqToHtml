@@ -1,4 +1,4 @@
-﻿namespace Yumiko.LinqToHtml.ToolKit.Crawler.Setting.Rule
+﻿namespace Yumiko.LinqToHtml.Toolkits.Crawler.Setting.Rule
 {
     using System.Collections.Generic;
     using System.Linq;

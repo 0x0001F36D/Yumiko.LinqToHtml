@@ -184,17 +184,17 @@
     <Compile Include="Tags\Item\Single\Track.cs" />
     <Compile Include="Tags\Item\Single\Wbr.cs" />
     <Compile Include="Tags\Item\Other\Root.cs" />
-    <Compile Include="ToolKit\Crawler\Architecture\XCrawlerClient.cs" />
-    <Compile Include="ToolKit\Crawler\Setting\XCrawlerConfiguration.cs" />
-    <Compile Include="ToolKit\Crawler\Architecture\XCrawlerExtension.cs" />
-    <Compile Include="ToolKit\Crawler\Setting\XCrawlerFilterRule.cs" />
-    <Compile Include="ToolKit\Crawler\Setting\XCrawlerFilterRuleList.cs" />
-    <Compile Include="ToolKit\Crawler\XCrawler.cs" />
-    <Compile Include="ToolKit\Crawler\Core\XCrawlerCallbackEventArgs.cs" />
-    <Compile Include="ToolKit\Crawler\Core\XCrawlerException.cs" />
-    <Compile Include="ToolKit\Crawler\Core\XCrawlerObject.cs" />
-    <Compile Include="ToolKit\Crawler\Core\XCrawlerStatusEventArgs.cs" />
-    <Compile Include="ToolKit\Parser\XParser.cs" />
+    <Compile Include="Toolkit\Crawler\Architecture\XCrawlerClient.cs" />
+    <Compile Include="Toolkit\Crawler\Setting\XCrawlerConfiguration.cs" />
+    <Compile Include="Toolkit\Crawler\Architecture\XCrawlerExtension.cs" />
+    <Compile Include="Toolkit\Crawler\Setting\XCrawlerFilterRule.cs" />
+    <Compile Include="Toolkit\Crawler\Setting\XCrawlerFilterRuleList.cs" />
+    <Compile Include="Toolkit\Crawler\XCrawler.cs" />
+    <Compile Include="Toolkit\Crawler\Core\XCrawlerCallbackEventArgs.cs" />
+    <Compile Include="Toolkit\Crawler\Core\XCrawlerException.cs" />
+    <Compile Include="Toolkit\Crawler\Core\XCrawlerObject.cs" />
+    <Compile Include="Toolkit\Crawler\Core\XCrawlerStatusEventArgs.cs" />
+    <Compile Include="Toolkit\Parser\XParser.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
