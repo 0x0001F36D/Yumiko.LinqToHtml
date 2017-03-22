@@ -7,7 +7,7 @@
 
     public class XCrawlerConfiguration : WebHeaderCollection
     {
-        public XCrawlerConfiguration(string site, uint maxTier = 1, XCrawlerStatusEventHandler statusReporter  = null, XCrawlerCallbackEventHandler callbackReporter = null, Encoding encoding = null, bool useSiteSearch = false, XCrawlerFilterRuleList rules = null, bool useDefaultCredentials = false, IWebProxy proxy = null, ICredentials credentials = null)
+        public XCrawlerConfiguration(string site, uint maxTier = 3, XCrawlerStatusEventHandler statusReporter  = null, XCrawlerCallbackEventHandler callbackReporter = null, Encoding encoding = null, bool useSiteSearch = false, XCrawlerFilterRuleList rules = null, bool useDefaultCredentials = false, IWebProxy proxy = null, ICredentials credentials = null)
         {
             this.Site = site;
             this.Encoding = encoding;

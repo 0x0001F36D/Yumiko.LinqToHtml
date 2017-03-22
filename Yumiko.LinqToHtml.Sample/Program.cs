@@ -25,16 +25,16 @@ namespace Yumiko.LinqToHtml.Sample
             var urls = new[] { "https://msdn.microsoft.com/zh-tw/library/system.text.regularexpressions.regex(v=vs.110).aspx" };
 
             var conf = XCrawlerConfiguration.Default(urls[0]);
+            /*
             conf.Rules = new XCrawlerFilterRuleList
             {
-                new XCrawlerFilterRule(FilterBy.AttributeKey | FilterBy.AttributeValue | FilterBy.Content , FilterMode.Capture , string.Empty)
-                /*
                 new XCrawlerFilterRule(FilterBy.AttributeValue , FilterMode.Bypass , "amp"),
                 new XCrawlerFilterRule(FilterBy.AttributeValue , FilterMode.Capture , "microsoft"),
                 new XCrawlerFilterRule(FilterBy.AttributeValue , FilterMode.Capture , "expression"),
-                new XCrawlerFilterRule(FilterBy.AttributeValue , FilterMode.Capture , "regex"),*/
+                new XCrawlerFilterRule(FilterBy.AttributeValue , FilterMode.Capture , "regex"),
             };
-            conf.CallbackReporter = (sender, e) => Console.WriteLine($"[{e.Site}]");
+            */
+            conf.CallbackReporter = (sender, e) => Console.WriteLine($"[#{e.Object.Tier}]:[{e.Object.Site}]");
             conf.StatusReporter = (sender, e) =>
             {
                 switch (e.Status)

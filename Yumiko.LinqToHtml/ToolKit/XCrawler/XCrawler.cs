@@ -49,7 +49,7 @@
                 {
                     yield return t;
                     this.OnStatusChanged?.Invoke(this, new XCrawlerStatusEventArgs(CrawlerStatus.ReturnData));
-                    this.OnCallbackInvoked?.Invoke(this, new XCrawlerCallbackEventArgs(x));
+                    this.OnCallbackInvoked?.Invoke(this, new XCrawlerCallbackEventArgs(t));
                 }
                 else
                     this.OnStatusChanged?.Invoke(this, new XCrawlerStatusEventArgs(CrawlerStatus.DataExisted));

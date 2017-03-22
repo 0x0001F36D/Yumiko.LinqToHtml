@@ -7,11 +7,11 @@ namespace Yumiko.LinqToHtml.ToolKit
 
     public class XCrawlerCallbackEventArgs : EventArgs
     {
-        public XCrawlerCallbackEventArgs(string site)
+        public XCrawlerCallbackEventArgs(XCrawlerObject @object)
         {
-            this.Site = site;
+            this.Object = @object;
         }
 
-        public string Site { get; private set; }
+        public XCrawlerObject Object { get; private set; }
     }
 }
