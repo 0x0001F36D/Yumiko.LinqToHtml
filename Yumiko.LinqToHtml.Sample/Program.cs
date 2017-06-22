@@ -16,11 +16,32 @@ namespace Yumiko.LinqToHtml.Sample
     using System.Threading;
     using Toolkits.Crawler;
     using Toolkits.Crawler.Core;
+    using Yumiko.LinqToHtml.Toolkits.Parser;
+    using System.IO;
 
     class Program
     {
         static void Main(string[] args)
         {
+            var data = File.ReadAllText(@"C:\Users\USER\Documents\bookmarks_2017_4_9.html");
+
+            int i = 0;
+            int count = 0;
+            foreach (var item in data)
+            {
+                if (item == 'A') i = 1;
+                else if (item == ' ' & i == 1) i = 2;
+                else if (item == 'H' & i == 2) i = 3;
+                else if (item == 'R' & i == 3) i = 4;
+                else if (item == 'E' & i == 4) i = 5;
+                else if (item == 'F' & i == 5) count++;
+            }
+            Console.WriteLine(count);
+
+
+            Console.ReadKey();
+            return;
+
             var sw = new System.Diagnostics.Stopwatch();
             
             Console.BufferHeight = short.MaxValue-1;
